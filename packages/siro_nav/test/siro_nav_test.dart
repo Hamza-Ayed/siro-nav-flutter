@@ -6,10 +6,7 @@ import 'package:siro_nav/siro_nav.dart';
 void main() {
   group('SiroNav Flutter SDK - Controller Unit Tests', () {
     test('Initializes reactive notifiers in default state', () {
-      final config = NavConfig(
-        apiKey: 'siro_live_test_key_123',
-        driverId: 'captain_77',
-      );
+      final config = NavConfig(apiKey: 'siro_live_test_key_123');
       final controller = SiroNavController(config: config);
 
       expect(controller.isNavigating.value, isFalse);

@@ -16,7 +16,7 @@ Start with [`packages/siro_nav/README.md`](packages/siro_nav/README.md).
 
 ```dart
 final nav = await SiroNavController.create(
-  config: NavConfig(apiKey: 'YOUR_SIRO_API_KEY', driverId: 'driver-42'),
+  config: NavConfig(apiKey: 'YOUR_SIRO_API_KEY'),
 );
 
 // Leg 1: to the rider. Origin = the phone's GPS position.

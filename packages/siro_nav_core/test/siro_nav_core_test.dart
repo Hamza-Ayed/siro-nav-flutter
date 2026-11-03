@@ -101,7 +101,6 @@ void main() {
     test('Buffers telemetry points and measures cumulative distance', () {
       final config = NavConfig(
         apiKey: 'siro_test_key_abc',
-        driverId: 'captain_hamza_001',
         telemetrySamplingIntervalSeconds: 0, // instantaneous for test
       );
       final engine = NavigationEngine(config: config);
