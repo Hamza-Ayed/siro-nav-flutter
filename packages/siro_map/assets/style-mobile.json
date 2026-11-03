@@ -1,0 +1,2351 @@
+{
+  "version": 8,
+  "name": "Intaleq Premium Map Style",
+  "metadata": {
+    "brand": "Intaleq",
+    "version": "2.0.0",
+    "description": "Google + OSM hybrid style with 3D buildings, railways, subway, waterways, and Intaleq brand palette"
+  },
+  "center": [
+    36.276008,
+    33.513685
+  ],
+  "zoom": 15,
+  "glyphs": "https://cdn.protomaps.com/fonts/pbf/{fontstack}/{range}.pbf",
+  "sprite": "https://demotiles.maplibre.org/styles/osm-bright-gl-style/sprite",
+  "sources": {
+    "coastal-water-simplified": {
+      "type": "vector",
+      "tiles": [
+        "https://tiles.intaleqapp.com/coastal_water_simplified/{z}/{x}/{y}"
+      ],
+      "maxzoom": 18,
+      "attribution": "© OpenStreetMap contributors"
+    },
+    "coastal-water-full": {
+      "type": "vector",
+      "tiles": [
+        "https://tiles.intaleqapp.com/coastal_water_full/{z}/{x}/{y}"
+      ],
+      "maxzoom": 18,
+      "attribution": "© OpenStreetMap contributors"
+    },
+    "local-osm-polygons": {
+      "type": "vector",
+      "tiles": [
+        "https://tiles.intaleqapp.com/planet_osm_polygon/{z}/{x}/{y}"
+      ],
+      "maxzoom": 14,
+      "attribution": "© Intaleq | © OpenStreetMap contributors",
+      "minzoom": 8
+    },
+    "local-osm-lines": {
+      "type": "vector",
+      "tiles": [
+        "https://tiles.intaleqapp.com/planet_osm_line/{z}/{x}/{y}"
+      ],
+      "maxzoom": 14,
+      "minzoom": 8
+    },
+    "local-osm-points": {
+      "type": "vector",
+      "tiles": [
+        "https://tiles.intaleqapp.com/planet_osm_point/{z}/{x}/{y}"
+      ],
+      "maxzoom": 14
+    },
+    "imported-pois": {
+      "type": "vector",
+      "tiles": [
+        "https://tiles.intaleqapp.com/places_egypt/{z}/{x}/{y}"
+      ],
+      "maxzoom": 14
+    },
+    "overture_buildings": {
+      "type": "vector",
+      "tiles": [
+        "https://tiles.intaleqapp.com/overture_building/{z}/{x}/{y}"
+      ],
+      "maxzoom": 14
+    },
+    "overture_segments": {
+      "type": "vector",
+      "tiles": [
+        "https://tiles.intaleqapp.com/overture_segment/{z}/{x}/{y}"
+      ],
+      "maxzoom": 14
+    },
+    "places_golden": {
+      "type": "vector",
+      "tiles": [
+        "https://tiles.intaleqapp.com/places_golden/{z}/{x}/{y}"
+      ],
+      "minzoom": 11,
+      "maxzoom": 18
+    },
+    "local-osm-roads": {
+      "type": "vector",
+      "tiles": [
+        "https://tiles.intaleqapp.com/planet_osm_roads/{z}/{x}/{y}"
+      ],
+      "maxzoom": 14,
+      "attribution": "© OpenStreetMap contributors"
+    }
+  },
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "paint": {
+        "background-color": "#EEF2F7"
+      }
+    },
+    {
+      "id": "landuse-residential",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "==",
+        "landuse",
+        "residential"
+      ],
+      "paint": {
+        "fill-color": "#F0F4F8",
+        "fill-opacity": 1
+      },
+      "minzoom": 8
+    },
+    {
+      "id": "landuse-commercial",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "==",
+        "landuse",
+        "commercial"
+      ],
+      "paint": {
+        "fill-color": "#FAF5EE",
+        "fill-opacity": 1
+      },
+      "minzoom": 8
+    },
+    {
+      "id": "landuse-industrial",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "in",
+        "landuse",
+        "industrial",
+        "railway"
+      ],
+      "paint": {
+        "fill-color": "#E4E8EE",
+        "fill-opacity": 1
+      },
+      "minzoom": 8
+    },
+    {
+      "id": "landuse-cemetery",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "==",
+        "landuse",
+        "cemetery"
+      ],
+      "paint": {
+        "fill-color": "#B8D4BA",
+        "fill-opacity": 0.9
+      },
+      "minzoom": 8
+    },
+    {
+      "id": "landuse-military",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "==",
+        "landuse",
+        "military"
+      ],
+      "paint": {
+        "fill-color": "#E2D9CC",
+        "fill-opacity": 0.8
+      },
+      "minzoom": 8
+    },
+    {
+      "id": "park-layer",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "any",
+        [
+          "in",
+          "leisure",
+          "park",
+          "garden",
+          "nature_reserve",
+          "pitch",
+          "playground"
+        ],
+        [
+          "in",
+          "landuse",
+          "grass",
+          "meadow",
+          "forest"
+        ],
+        [
+          "in",
+          "natural",
+          "wood",
+          "scrub",
+          "heath"
+        ]
+      ],
+      "paint": {
+        "fill-color": [
+          "match",
+          [
+            "get",
+            "leisure"
+          ],
+          "pitch",
+          "#9ED4A0",
+          "playground",
+          "#B8E6B8",
+          "#C5E8C5"
+        ],
+        "fill-opacity": 0.85
+      },
+      "minzoom": 8
+    },
+    {
+      "id": "park-outline",
+      "type": "line",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "in",
+        "leisure",
+        "park",
+        "garden",
+        "nature_reserve"
+      ],
+      "paint": {
+        "line-color": "#94D4A0",
+        "line-width": 0.8,
+        "line-opacity": 0.7
+      },
+      "minzoom": 8
+    },
+    {
+      "id": "coastal-ocean-simplified",
+      "type": "fill",
+      "source": "coastal-water-simplified",
+      "source-layer": "coastal_water_simplified",
+      "maxzoom": 10,
+      "paint": {
+        "fill-color": "#9ECFE8",
+        "fill-opacity": 0.95
+      }
+    },
+    {
+      "id": "coastal-ocean-full",
+      "type": "fill",
+      "source": "coastal-water-full",
+      "source-layer": "coastal_water_full",
+      "minzoom": 10,
+      "paint": {
+        "fill-color": "#9ECFE8",
+        "fill-opacity": 0.95
+      }
+    },
+    {
+      "id": "water-polygon",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "any",
+        [
+          "in",
+          "natural",
+          "water",
+          "lake",
+          "bay",
+          "strait",
+          "lagoon"
+        ],
+        [
+          "in",
+          "water",
+          "sea",
+          "ocean",
+          "lagoon",
+          "tidal",
+          "reservoir"
+        ],
+        [
+          "in",
+          "waterway",
+          "riverbank",
+          "tidal_channel"
+        ],
+        [
+          "in",
+          "landuse",
+          "basin",
+          "reservoir"
+        ],
+        [
+          "==",
+          "amenity",
+          "fountain"
+        ]
+      ],
+      "paint": {
+        "fill-color": "#9ECFE8",
+        "fill-opacity": 0.95
+      },
+      "minzoom": 8
+    },
+    {
+      "id": "water-polygon-outline",
+      "type": "line",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "any",
+        [
+          "in",
+          "natural",
+          "water",
+          "lake",
+          "bay",
+          "strait",
+          "lagoon"
+        ],
+        [
+          "in",
+          "water",
+          "sea",
+          "ocean",
+          "lagoon",
+          "tidal",
+          "reservoir"
+        ],
+        [
+          "in",
+          "waterway",
+          "riverbank",
+          "tidal_channel"
+        ],
+        [
+          "in",
+          "landuse",
+          "basin",
+          "reservoir"
+        ]
+      ],
+      "paint": {
+        "line-color": "#6BB8D8",
+        "line-width": 0.8,
+        "line-opacity": 0.8
+      },
+      "minzoom": 8
+    },
+    {
+      "id": "waterway-river",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "all",
+        [
+          "in",
+          "waterway",
+          "river",
+          "canal",
+          "tidal_channel"
+        ],
+        [
+          "!=",
+          "intermittent",
+          "yes"
+        ],
+        [
+          "!=",
+          "seasonal",
+          "yes"
+        ]
+      ],
+      "paint": {
+        "line-color": "#6BB8D8",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          10,
+          1.5,
+          14,
+          4,
+          16,
+          7
+        ],
+        "line-opacity": 0.95
+      },
+      "minzoom": 8
+    },
+    {
+      "id": "waterway-stream-drain",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "all",
+        [
+          "in",
+          "waterway",
+          "stream",
+          "drain",
+          "ditch"
+        ],
+        [
+          "!=",
+          "intermittent",
+          "yes"
+        ],
+        [
+          "!=",
+          "seasonal",
+          "yes"
+        ],
+        [
+          "!=",
+          "tunnel",
+          "yes"
+        ]
+      ],
+      "minzoom": 13,
+      "paint": {
+        "line-color": "#7FBFD8",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          13,
+          0.8,
+          16,
+          2.5
+        ],
+        "line-opacity": 0.85
+      }
+    },
+    {
+      "id": "railway-area",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "==",
+        "landuse",
+        "railway"
+      ],
+      "paint": {
+        "fill-color": "#DDE2EA",
+        "fill-opacity": 0.9
+      },
+      "minzoom": 12
+    },
+    {
+      "id": "railway-rail-casing",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "all",
+        [
+          "in",
+          "railway",
+          "rail",
+          "narrow_gauge",
+          "preserved"
+        ],
+        [
+          "!=",
+          "service",
+          "yard"
+        ],
+        [
+          "!=",
+          "service",
+          "siding"
+        ]
+      ],
+      "minzoom": 8,
+      "paint": {
+        "line-color": "#B0B8C5",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          8,
+          2,
+          12,
+          4,
+          16,
+          8
+        ]
+      }
+    },
+    {
+      "id": "railway-rail-core",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "all",
+        [
+          "in",
+          "railway",
+          "rail",
+          "narrow_gauge",
+          "preserved"
+        ],
+        [
+          "!=",
+          "service",
+          "yard"
+        ],
+        [
+          "!=",
+          "service",
+          "siding"
+        ]
+      ],
+      "minzoom": 8,
+      "paint": {
+        "line-color": "#6B7A8E",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          8,
+          1,
+          12,
+          2.5,
+          16,
+          5
+        ],
+        "line-dasharray": [
+          6,
+          4
+        ]
+      }
+    },
+    {
+      "id": "railway-subway-casing",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "in",
+        "railway",
+        "subway",
+        "light_rail",
+        "tram",
+        "monorail"
+      ],
+      "minzoom": 10,
+      "paint": {
+        "line-color": [
+          "match",
+          [
+            "get",
+            "railway"
+          ],
+          "subway",
+          "#CC2233",
+          "light_rail",
+          "#0066CC",
+          "tram",
+          "#8833BB",
+          "monorail",
+          "#008855",
+          "#BB3344"
+        ],
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          10,
+          3,
+          14,
+          6,
+          16,
+          10
+        ]
+      }
+    },
+    {
+      "id": "railway-subway-core",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "in",
+        "railway",
+        "subway",
+        "light_rail",
+        "tram",
+        "monorail"
+      ],
+      "minzoom": 10,
+      "paint": {
+        "line-color": [
+          "match",
+          [
+            "get",
+            "railway"
+          ],
+          "subway",
+          "#FF3347",
+          "light_rail",
+          "#2288FF",
+          "tram",
+          "#AA44EE",
+          "monorail",
+          "#00BB66",
+          "#FF4455"
+        ],
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          10,
+          1.5,
+          14,
+          3.5,
+          16,
+          6
+        ]
+      }
+    },
+    {
+      "id": "osm-power-lines",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "minzoom": 10,
+      "filter": [
+        "all",
+        [
+          "in",
+          "power",
+          "line",
+          "minor_line",
+          "cable"
+        ],
+        [
+          "any",
+          [
+            "!has",
+            "location"
+          ],
+          [
+            "in",
+            "location",
+            "overground",
+            "overhead",
+            "rooftop"
+          ]
+        ]
+      ],
+      "paint": {
+        "line-color": [
+          "match",
+          [
+            "get",
+            "power"
+          ],
+          "line",
+          "#77716b",
+          "minor_line",
+          "#918b83",
+          "#858079"
+        ],
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          10,
+          0.45,
+          13,
+          0.8,
+          16,
+          1.25,
+          18,
+          1.7
+        ],
+        "line-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          10,
+          0.45,
+          14,
+          0.72,
+          17,
+          0.9
+        ]
+      }
+    },
+    {
+      "id": "osm-power-facilities",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "minzoom": 10,
+      "filter": [
+        "in",
+        "power",
+        "plant",
+        "generator"
+      ],
+      "paint": {
+        "fill-color": [
+          "match",
+          [
+            "get",
+            "power"
+          ],
+          "plant",
+          "#d7c8df",
+          "generator",
+          "#e6d9bf",
+          "#d8d0c4"
+        ],
+        "fill-opacity": 0.48,
+        "fill-outline-color": "#8b758e"
+      }
+    },
+    {
+      "id": "osm-power-substations",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "minzoom": 13,
+      "filter": [
+        "in",
+        "power",
+        "substation",
+        "switchgear"
+      ],
+      "paint": {
+        "fill-color": "#d9cbdc",
+        "fill-opacity": 0.48,
+        "fill-outline-color": "#8b758e"
+      }
+    },
+    {
+      "id": "road-casing-track-path",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "in",
+        "highway",
+        "track",
+        "path",
+        "footway",
+        "cycleway",
+        "steps"
+      ],
+      "minzoom": 14,
+      "paint": {
+        "line-color": "#C8CDD6",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          14,
+          1,
+          16,
+          4
+        ],
+        "line-dasharray": [
+          4,
+          3
+        ]
+      }
+    },
+    {
+      "id": "road-casing-minor",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "in",
+        "highway",
+        "residential",
+        "service",
+        "unclassified",
+        "living_street",
+        "pedestrian"
+      ],
+      "paint": {
+        "line-color": "#C8D0DA",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          12,
+          1.5,
+          16,
+          10
+        ]
+      }
+    },
+    {
+      "id": "road-core-minor",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "in",
+        "highway",
+        "residential",
+        "service",
+        "unclassified",
+        "living_street",
+        "pedestrian"
+      ],
+      "paint": {
+        "line-color": "#FFFFFF",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          12,
+          0.8,
+          16,
+          8
+        ]
+      }
+    },
+    {
+      "id": "road-casing-tertiary",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "in",
+        "highway",
+        "tertiary",
+        "tertiary_link"
+      ],
+      "paint": {
+        "line-color": "#BCC5D2",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          11,
+          2,
+          16,
+          14
+        ]
+      }
+    },
+    {
+      "id": "road-core-tertiary",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "in",
+        "highway",
+        "tertiary",
+        "tertiary_link"
+      ],
+      "paint": {
+        "line-color": "#FFFFFF",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          11,
+          1.2,
+          16,
+          11
+        ]
+      }
+    },
+    {
+      "id": "road-casing-secondary",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "in",
+        "highway",
+        "secondary",
+        "secondary_link"
+      ],
+      "paint": {
+        "line-color": "#B8D4EC",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          11,
+          2.5,
+          16,
+          16
+        ]
+      }
+    },
+    {
+      "id": "road-core-secondary",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "in",
+        "highway",
+        "secondary",
+        "secondary_link"
+      ],
+      "paint": {
+        "line-color": "#F0F7FF",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          11,
+          1.8,
+          16,
+          13
+        ]
+      }
+    },
+    {
+      "id": "road-casing-primary",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "in",
+        "highway",
+        "primary",
+        "primary_link"
+      ],
+      "paint": {
+        "line-color": "#E8C96A",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          10,
+          3,
+          16,
+          18
+        ]
+      }
+    },
+    {
+      "id": "road-core-primary",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "in",
+        "highway",
+        "primary",
+        "primary_link"
+      ],
+      "paint": {
+        "line-color": "#FFC72C",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          10,
+          2,
+          16,
+          14
+        ]
+      }
+    },
+    {
+      "id": "road-casing-motorway-trunk",
+      "type": "line",
+      "source": "local-osm-roads",
+      "source-layer": "planet_osm_roads",
+      "filter": [
+        "in",
+        "highway",
+        "motorway",
+        "motorway_link",
+        "trunk",
+        "trunk_link"
+      ],
+      "paint": {
+        "line-color": "#F4A261",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          9,
+          4,
+          16,
+          20
+        ]
+      },
+      "minzoom": 5
+    },
+    {
+      "id": "road-core-motorway-trunk",
+      "type": "line",
+      "source": "local-osm-roads",
+      "source-layer": "planet_osm_roads",
+      "filter": [
+        "in",
+        "highway",
+        "motorway",
+        "motorway_link",
+        "trunk",
+        "trunk_link"
+      ],
+      "paint": {
+        "line-color": "#E76F2A",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          9,
+          2.5,
+          16,
+          16
+        ]
+      },
+      "minzoom": 5
+    },
+    {
+      "id": "building-fill-flat",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "has",
+        "building"
+      ],
+      "maxzoom": 15,
+      "paint": {
+        "fill-color": "#DDD8D0",
+        "fill-opacity": 0.9,
+        "fill-outline-color": "#C8C2B8"
+      },
+      "minzoom": 13
+    },
+    {
+      "id": "building-3d",
+      "type": "fill-extrusion",
+      "source": "overture_buildings",
+      "source-layer": "overture_building",
+      "minzoom": 15,
+      "paint": {
+        "fill-extrusion-color": "#DDD8D0",
+        "fill-extrusion-height": [
+          "coalesce",
+          [
+            "to-number",
+            [
+              "get",
+              "height"
+            ],
+            0
+          ],
+          [
+            "*",
+            [
+              "coalesce",
+              [
+                "to-number",
+                [
+                  "get",
+                  "num_floors"
+                ],
+                null
+              ],
+              3
+            ],
+            3.5
+          ],
+          12
+        ],
+        "fill-extrusion-base": 0,
+        "fill-extrusion-opacity": 0.85
+      }
+    },
+    {
+      "id": "railway-label",
+      "type": "symbol",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "in",
+        "railway",
+        "rail",
+        "subway",
+        "light_rail",
+        "tram"
+      ],
+      "minzoom": 13,
+      "layout": {
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name:ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Regular"
+        ],
+        "text-size": 10,
+        "symbol-placement": "line",
+        "text-padding": 6,
+        "text-allow-overlap": false
+      },
+      "paint": {
+        "text-color": [
+          "match",
+          [
+            "get",
+            "railway"
+          ],
+          "subway",
+          "#CC2233",
+          "light_rail",
+          "#0055BB",
+          "tram",
+          "#7722AA",
+          "#4A5568"
+        ],
+        "text-halo-color": "rgba(255,255,255,0.9)",
+        "text-halo-width": 2
+      }
+    },
+    {
+      "id": "waterway-label",
+      "type": "symbol",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "all",
+        [
+          "in",
+          "waterway",
+          "river",
+          "canal"
+        ],
+        [
+          "!=",
+          "intermittent",
+          "yes"
+        ],
+        [
+          "has",
+          "name"
+        ]
+      ],
+      "minzoom": 12,
+      "layout": {
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name:ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Regular"
+        ],
+        "text-size": 11,
+        "symbol-placement": "line",
+        "text-letter-spacing": 0.1
+      },
+      "paint": {
+        "text-color": "#2E86AB",
+        "text-halo-color": "rgba(255,255,255,0.85)",
+        "text-halo-width": 2
+      }
+    },
+    {
+      "id": "building-number-polygon",
+      "type": "symbol",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "minzoom": 17,
+      "filter": [
+        "has",
+        "addr:housenumber"
+      ],
+      "layout": {
+        "text-field": "{addr:housenumber}",
+        "text-font": [
+          "Noto Sans Regular"
+        ],
+        "text-size": 10,
+        "text-allow-overlap": false,
+        "text-ignore-placement": false
+      },
+      "paint": {
+        "text-color": "#5A5048",
+        "text-halo-color": "rgba(255,255,255,0.95)",
+        "text-halo-width": 1.5
+      }
+    },
+    {
+      "id": "building-number-point",
+      "type": "symbol",
+      "source": "local-osm-points",
+      "source-layer": "planet_osm_point",
+      "minzoom": 17,
+      "filter": [
+        "has",
+        "addr:housenumber"
+      ],
+      "layout": {
+        "text-field": "{addr:housenumber}",
+        "text-font": [
+          "Noto Sans Regular"
+        ],
+        "text-size": 10,
+        "text-allow-overlap": false
+      },
+      "paint": {
+        "text-color": "#5A5048",
+        "text-halo-color": "rgba(255,255,255,0.95)",
+        "text-halo-width": 1.5
+      }
+    },
+    {
+      "id": "road-labels-minor",
+      "type": "symbol",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "in",
+        "highway",
+        "residential",
+        "service",
+        "unclassified",
+        "living_street"
+      ],
+      "minzoom": 16,
+      "layout": {
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name:ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Regular"
+        ],
+        "text-size": 11,
+        "symbol-placement": "line",
+        "text-letter-spacing": 0.04,
+        "text-padding": 4,
+        "text-allow-overlap": false
+      },
+      "paint": {
+        "text-color": "#4A5568",
+        "text-halo-color": "rgba(255,255,255,0.85)",
+        "text-halo-width": 1.5
+      }
+    },
+    {
+      "id": "road-labels-major",
+      "type": "symbol",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "in",
+        "highway",
+        "primary",
+        "secondary",
+        "tertiary",
+        "motorway",
+        "trunk"
+      ],
+      "minzoom": 13,
+      "layout": {
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name:ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Regular"
+        ],
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          13,
+          11,
+          16,
+          14
+        ],
+        "symbol-placement": "line",
+        "text-letter-spacing": 0.05,
+        "text-padding": 5,
+        "text-allow-overlap": false
+      },
+      "paint": {
+        "text-color": "#2D3748",
+        "text-halo-color": "rgba(255,255,255,0.9)",
+        "text-halo-width": 2
+      }
+    },
+    {
+      "id": "place-labels-area",
+      "type": "symbol",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "minzoom": 10,
+      "filter": [
+        "has",
+        "name"
+      ],
+      "layout": {
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name:ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Regular"
+        ],
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          10,
+          10,
+          14,
+          13
+        ],
+        "text-padding": 8,
+        "text-allow-overlap": false,
+        "text-ignore-placement": false
+      },
+      "paint": {
+        "text-color": "#34495E",
+        "text-halo-color": "rgba(255,255,255,0.85)",
+        "text-halo-width": 2
+      }
+    },
+    {
+      "id": "place-labels-point",
+      "type": "symbol",
+      "source": "local-osm-points",
+      "source-layer": "planet_osm_point",
+      "minzoom": 10,
+      "filter": [
+        "any",
+        [
+          "in",
+          "place",
+          "city",
+          "town",
+          "village",
+          "suburb",
+          "neighbourhood",
+          "hamlet",
+          "locality",
+          "quarter"
+        ],
+        [
+          "in",
+          "natural",
+          "peak",
+          "spring"
+        ]
+      ],
+      "layout": {
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name:ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Regular"
+        ],
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          10,
+          [
+            "match",
+            [
+              "get",
+              "place"
+            ],
+            "city",
+            16,
+            "town",
+            14,
+            11
+          ],
+          14,
+          [
+            "match",
+            [
+              "get",
+              "place"
+            ],
+            "city",
+            20,
+            "town",
+            16,
+            13
+          ],
+          17,
+          14
+        ],
+        "text-letter-spacing": [
+          "match",
+          [
+            "get",
+            "place"
+          ],
+          "city",
+          0.08,
+          "town",
+          0.05,
+          0.02
+        ],
+        "text-anchor": "center",
+        "text-padding": 10,
+        "text-allow-overlap": false
+      },
+      "paint": {
+        "text-color": [
+          "match",
+          [
+            "get",
+            "place"
+          ],
+          "city",
+          "#1A2740",
+          "town",
+          "#2C3E50",
+          "village",
+          "#3D4F62",
+          "suburb",
+          "#4A5568",
+          "neighbourhood",
+          "#556677",
+          "#607080"
+        ],
+        "text-halo-color": "rgba(255,255,255,0.92)",
+        "text-halo-width": [
+          "match",
+          [
+            "get",
+            "place"
+          ],
+          "city",
+          3,
+          "town",
+          2.5,
+          2
+        ]
+      }
+    },
+    {
+      "id": "osm-power-tower-points",
+      "type": "circle",
+      "source": "local-osm-points",
+      "source-layer": "planet_osm_point",
+      "minzoom": 14,
+      "filter": [
+        "in",
+        "power",
+        "tower",
+        "portal",
+        "substation",
+        "transformer",
+        "generator",
+        "terminal"
+      ],
+      "paint": {
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          13,
+          1.6,
+          16,
+          3,
+          18,
+          4
+        ],
+        "circle-color": [
+          "match",
+          [
+            "get",
+            "power"
+          ],
+          "tower",
+          "#685d4f",
+          "portal",
+          "#685d4f",
+          "generator",
+          "#bd7a28",
+          "#765889"
+        ],
+        "circle-stroke-color": "#fffdf8",
+        "circle-stroke-width": 0.8,
+        "circle-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          13,
+          0.55,
+          16,
+          0.88
+        ]
+      }
+    },
+    {
+      "id": "osm-power-poles",
+      "type": "circle",
+      "source": "local-osm-points",
+      "source-layer": "planet_osm_point",
+      "minzoom": 16,
+      "filter": [
+        "any",
+        [
+          "in",
+          "power",
+          "pole",
+          "connection",
+          "transformer"
+        ],
+        [
+          "==",
+          "man_made",
+          "utility_pole"
+        ]
+      ],
+      "paint": {
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          16,
+          1.3,
+          18,
+          2.2
+        ],
+        "circle-color": "#77716b",
+        "circle-stroke-color": "#fffdf8",
+        "circle-stroke-width": 0.55,
+        "circle-opacity": 0.82
+      }
+    },
+    {
+      "id": "osm-vertical-infrastructure",
+      "type": "circle",
+      "source": "local-osm-points",
+      "source-layer": "planet_osm_point",
+      "minzoom": 14,
+      "filter": [
+        "in",
+        "man_made",
+        "tower",
+        "mast",
+        "communications_tower",
+        "water_tower",
+        "chimney",
+        "wind_turbine",
+        "windmill",
+        "lighthouse",
+        "silo"
+      ],
+      "paint": {
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          14,
+          1.8,
+          17,
+          3.4
+        ],
+        "circle-color": [
+          "match",
+          [
+            "get",
+            "man_made"
+          ],
+          "water_tower",
+          "#3686a0",
+          "wind_turbine",
+          "#4d9478",
+          "lighthouse",
+          "#c2763e",
+          "chimney",
+          "#8c6552",
+          "#536f86"
+        ],
+        "circle-stroke-color": "#fffdf8",
+        "circle-stroke-width": 0.8,
+        "circle-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          14,
+          0.5,
+          17,
+          0.88
+        ]
+      }
+    },
+    {
+      "id": "osm-infrastructure-labels",
+      "type": "symbol",
+      "source": "local-osm-points",
+      "source-layer": "planet_osm_point",
+      "minzoom": 16,
+      "filter": [
+        "all",
+        [
+          "has",
+          "name"
+        ],
+        [
+          "any",
+          [
+            "has",
+            "power"
+          ],
+          [
+            "has",
+            "man_made"
+          ]
+        ]
+      ],
+      "layout": {
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name:ar"
+          ],
+          [
+            "get",
+            "name"
+          ]
+        ],
+        "text-font": [
+          "Noto Sans Regular",
+          "Open Sans Regular"
+        ],
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          16,
+          9,
+          18,
+          11
+        ],
+        "text-offset": [
+          0,
+          1.1
+        ],
+        "text-anchor": "top",
+        "text-optional": true
+      },
+      "paint": {
+        "text-color": "#39434d",
+        "text-halo-color": "#fffdf8",
+        "text-halo-width": 1.2
+      }
+    },
+    {
+      "id": "osm-power-tower-icons",
+      "type": "symbol",
+      "source": "local-osm-points",
+      "source-layer": "planet_osm_point",
+      "minzoom": 14,
+      "filter": [
+        "in",
+        "power",
+        "tower",
+        "portal",
+        "substation",
+        "transformer",
+        "generator",
+        "terminal"
+      ],
+      "layout": {
+        "icon-image": [
+          "match",
+          [
+            "get",
+            "power"
+          ],
+          "substation",
+          "utility-substation",
+          "transformer",
+          "utility-substation",
+          "generator",
+          "utility-generator",
+          "terminal",
+          "utility-substation",
+          "power-tower"
+        ],
+        "icon-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          14,
+          0.65,
+          17,
+          0.95
+        ],
+        "icon-allow-overlap": false,
+        "icon-ignore-placement": false
+      }
+    },
+    {
+      "id": "osm-power-pole-icons",
+      "type": "symbol",
+      "source": "local-osm-points",
+      "source-layer": "planet_osm_point",
+      "minzoom": 16,
+      "filter": [
+        "any",
+        [
+          "in",
+          "power",
+          "pole",
+          "connection"
+        ],
+        [
+          "==",
+          "man_made",
+          "utility_pole"
+        ]
+      ],
+      "layout": {
+        "icon-image": "power-pole",
+        "icon-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          16,
+          0.55,
+          18,
+          0.75
+        ],
+        "icon-allow-overlap": false,
+        "icon-ignore-placement": false
+      }
+    },
+    {
+      "id": "osm-vertical-infrastructure-icons",
+      "type": "symbol",
+      "source": "local-osm-points",
+      "source-layer": "planet_osm_point",
+      "minzoom": 15,
+      "filter": [
+        "in",
+        "man_made",
+        "tower",
+        "mast",
+        "communications_tower",
+        "water_tower",
+        "chimney",
+        "wind_turbine",
+        "windmill",
+        "lighthouse",
+        "silo"
+      ],
+      "layout": {
+        "icon-image": [
+          "match",
+          [
+            "get",
+            "man_made"
+          ],
+          "water_tower",
+          "vertical-water-tower",
+          "wind_turbine",
+          "vertical-wind-turbine",
+          "windmill",
+          "vertical-wind-turbine",
+          "chimney",
+          "vertical-chimney",
+          "mast",
+          "vertical-mast",
+          "communications_tower",
+          "vertical-mast",
+          "vertical-tower"
+        ],
+        "icon-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          15,
+          0.6,
+          18,
+          0.9
+        ],
+        "icon-allow-overlap": false,
+        "icon-ignore-placement": false
+      }
+    },
+    {
+      "id": "places-golden-tier1",
+      "type": "symbol",
+      "source": "places_golden",
+      "source-layer": "places_golden",
+      "minzoom": 13,
+      "filter": [
+        "all",
+        [
+          "!=",
+          [
+            "get",
+            "kind"
+          ],
+          "street"
+        ],
+        [
+          "in",
+          [
+            "get",
+            "category_key"
+          ],
+          [
+            "literal",
+            [
+              "hospital",
+              "clinic",
+              "pharmacy",
+              "police",
+              "transport",
+              "worship",
+              "school",
+              "university",
+              "fuel"
+            ]
+          ]
+        ]
+      ],
+      "layout": {
+        "icon-image": [
+          "match",
+          [
+            "get",
+            "category_key"
+          ],
+          "hospital",
+          "hospital",
+          "clinic",
+          "hospital",
+          "pharmacy",
+          "pharmacy",
+          "police",
+          "police",
+          "transport",
+          "train",
+          "worship",
+          "tourist",
+          "school",
+          "tourist",
+          "university",
+          "tourist",
+          "fuel",
+          "shop",
+          ""
+        ],
+        "icon-size": 0.9,
+        "icon-optional": true,
+        "text-optional": false,
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name_ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Bold"
+        ],
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          13,
+          9.5,
+          15,
+          11,
+          17,
+          13
+        ],
+        "text-anchor": "top",
+        "text-offset": [
+          0,
+          0.9
+        ],
+        "symbol-sort-key": [
+          "-",
+          [
+            "to-number",
+            [
+              "get",
+              "popularity_score"
+            ],
+            0
+          ]
+        ]
+      },
+      "paint": {
+        "text-color": "#1e293b",
+        "text-halo-color": "rgba(255, 255, 255, 0.95)",
+        "text-halo-width": 2
+      }
+    },
+    {
+      "id": "places-golden-tier2",
+      "type": "symbol",
+      "source": "places_golden",
+      "source-layer": "places_golden",
+      "minzoom": 15,
+      "filter": [
+        "all",
+        [
+          "!=",
+          [
+            "get",
+            "kind"
+          ],
+          "street"
+        ],
+        [
+          "in",
+          [
+            "get",
+            "category_key"
+          ],
+          [
+            "literal",
+            [
+              "restaurant",
+              "cafe",
+              "bakery",
+              "supermarket",
+              "mall",
+              "shop",
+              "bank",
+              "exchange",
+              "hotel",
+              "tourism",
+              "kindergarten",
+              "car_service"
+            ]
+          ]
+        ]
+      ],
+      "layout": {
+        "icon-image": [
+          "match",
+          [
+            "get",
+            "category_key"
+          ],
+          "restaurant",
+          "restaurant",
+          "cafe",
+          "cafe",
+          "bakery",
+          "shop",
+          "supermarket",
+          "shop",
+          "mall",
+          "shop",
+          "shop",
+          "shop",
+          "bank",
+          "shop",
+          "exchange",
+          "shop",
+          "hotel",
+          "tourist",
+          "tourism",
+          "tourist",
+          "kindergarten",
+          "tourist",
+          "car_service",
+          "shop",
+          ""
+        ],
+        "icon-size": 0.9,
+        "icon-optional": true,
+        "text-optional": false,
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name_ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Bold"
+        ],
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          13,
+          9.5,
+          15,
+          11,
+          17,
+          13
+        ],
+        "text-anchor": "top",
+        "text-offset": [
+          0,
+          0.9
+        ],
+        "symbol-sort-key": [
+          "-",
+          [
+            "to-number",
+            [
+              "get",
+              "popularity_score"
+            ],
+            0
+          ]
+        ]
+      },
+      "paint": {
+        "text-color": "#1e293b",
+        "text-halo-color": "rgba(255, 255, 255, 0.95)",
+        "text-halo-width": 2
+      }
+    },
+    {
+      "id": "places-golden-labels",
+      "type": "symbol",
+      "source": "places_golden",
+      "source-layer": "places_golden",
+      "minzoom": 13,
+      "filter": [
+        "all",
+        [
+          "!=",
+          [
+            "get",
+            "kind"
+          ],
+          "street"
+        ],
+        [
+          "!",
+          [
+            "in",
+            [
+              "get",
+              "category_key"
+            ],
+            [
+              "literal",
+              [
+                "hospital",
+                "clinic",
+                "pharmacy",
+                "police",
+                "transport",
+                "worship",
+                "school",
+                "university",
+                "fuel",
+                "restaurant",
+                "cafe",
+                "bakery",
+                "supermarket",
+                "mall",
+                "shop",
+                "bank",
+                "exchange",
+                "hotel",
+                "tourism",
+                "kindergarten",
+                "car_service"
+              ]
+            ]
+          ]
+        ]
+      ],
+      "layout": {
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name_ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Bold"
+        ],
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          13,
+          9.5,
+          15,
+          11,
+          17,
+          13
+        ],
+        "text-offset": [
+          0,
+          0.6
+        ],
+        "text-anchor": "top",
+        "text-padding": 8,
+        "text-max-width": 7,
+        "text-allow-overlap": false,
+        "text-ignore-placement": false,
+        "symbol-sort-key": [
+          "-",
+          [
+            "to-number",
+            [
+              "get",
+              "popularity_score"
+            ],
+            0
+          ]
+        ]
+      },
+      "paint": {
+        "text-color": "#1e293b",
+        "text-halo-color": "rgba(255, 255, 255, 0.95)",
+        "text-halo-width": 2
+      }
+    }
+  ]
+}

@@ -1,0 +1,6302 @@
+{
+  "version": 8,
+  "name": "Intaleq Premium Map Style",
+  "metadata": {
+    "brand": "Intaleq",
+    "version": "3.1.0",
+    "description": "Siro Limestone: warm land, white residential streets, royal-gold arterial hierarchy, golden POI badges",
+    "palette": "gold"
+  },
+  "center": [
+    36.276008,
+    33.513685
+  ],
+  "zoom": 15,
+  "glyphs": "https://cdn.protomaps.com/fonts/pbf/{fontstack}/{range}.pbf",
+  "sources": {
+    "local-osm-polygons": {
+      "type": "vector",
+      "tiles": [
+        "https://tiles.intaleqapp.com/planet_osm_polygon/{z}/{x}/{y}?v=20261029b"
+      ],
+      "maxzoom": 14,
+      "attribution": "© Intaleq | © OpenStreetMap contributors"
+    },
+    "local-osm-lines": {
+      "type": "vector",
+      "tiles": [
+        "https://tiles.intaleqapp.com/planet_osm_line/{z}/{x}/{y}?v=20261029b"
+      ],
+      "maxzoom": 14
+    },
+    "local-osm-points": {
+      "type": "vector",
+      "tiles": [
+        "https://tiles.intaleqapp.com/planet_osm_point/{z}/{x}/{y}?v=20261029b"
+      ],
+      "maxzoom": 14
+    },
+    "overture_buildings": {
+      "type": "vector",
+      "tiles": [
+        "https://tiles.intaleqapp.com/overture_building/{z}/{x}/{y}?v=20261029b"
+      ],
+      "maxzoom": 16
+    },
+    "overture_segments": {
+      "type": "vector",
+      "tiles": [
+        "https://tiles.intaleqapp.com/overture_segment/{z}/{x}/{y}?v=20261029b"
+      ],
+      "maxzoom": 14
+    },
+    "approved_roads": {
+      "type": "vector",
+      "tiles": [
+        "https://tiles.intaleqapp.com/approved_roads/{z}/{x}/{y}?v=20261029b"
+      ],
+      "minzoom": 8,
+      "maxzoom": 18
+    },
+    "terrain-dem": {
+      "type": "raster-dem",
+      "tiles": [
+        "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"
+      ],
+      "encoding": "terrarium",
+      "tileSize": 256,
+      "maxzoom": 15
+    },
+    "opentopo-contours": {
+      "type": "raster",
+      "tiles": [
+        "https://tile.opentopomap.org/{z}/{x}/{y}.png"
+      ],
+      "tileSize": 256,
+      "maxzoom": 17
+    },
+    "places_golden": {
+      "type": "vector",
+      "tiles": [
+        "https://tiles.intaleqapp.com/places_golden/{z}/{x}/{y}?v=20261029b"
+      ],
+      "minzoom": 11,
+      "maxzoom": 18
+    }
+  },
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "paint": {
+        "background-color": "#F5F3EE"
+      }
+    },
+    {
+      "id": "hillshading",
+      "type": "hillshade",
+      "source": "terrain-dem",
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "hillshade-shadow-color": "#0f172a",
+        "hillshade-highlight-color": "#ffffff",
+        "hillshade-accent-color": "#334155",
+        "hillshade-exaggeration": 0.85
+      }
+    },
+    {
+      "id": "topographic-contours",
+      "type": "raster",
+      "source": "opentopo-contours",
+      "minzoom": 8,
+      "maxzoom": 17,
+      "layout": {
+        "visibility": "none"
+      },
+      "paint": {
+        "raster-opacity": 0.55
+      }
+    },
+    {
+      "id": "landuse-residential",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "==",
+        "landuse",
+        "residential"
+      ],
+      "paint": {
+        "fill-color": "#F1EEE7",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "id": "landuse-commercial",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "==",
+        "landuse",
+        "commercial"
+      ],
+      "paint": {
+        "fill-color": "#F3EEE5",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "id": "landuse-industrial",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "in",
+        "landuse",
+        "industrial",
+        "railway"
+      ],
+      "paint": {
+        "fill-color": "#ECE9E3",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "id": "landuse-retail",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "==",
+        "landuse",
+        "retail"
+      ],
+      "paint": {
+        "fill-color": "#F7E9E3",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "id": "landuse-farmland",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "in",
+        "landuse",
+        "farmland",
+        "farmyard",
+        "orchard"
+      ],
+      "paint": {
+        "fill-color": "#EFEDD6",
+        "fill-opacity": 0.8
+      }
+    },
+    {
+      "id": "landuse-forest",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "in",
+        "landuse",
+        "forest",
+        "natural"
+      ],
+      "paint": {
+        "fill-color": "#C3DEB3",
+        "fill-opacity": 0.9
+      }
+    },
+    {
+      "id": "landuse-grass",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "in",
+        "landuse",
+        "grass",
+        "meadow"
+      ],
+      "paint": {
+        "fill-color": "#D6EBC8",
+        "fill-opacity": 0.9
+      }
+    },
+    {
+      "id": "landuse-power",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "any",
+        [
+          "==",
+          "power",
+          "plant"
+        ],
+        [
+          "==",
+          "power",
+          "substation"
+        ],
+        [
+          "==",
+          "landuse",
+          "industrial"
+        ]
+      ],
+      "paint": {
+        "fill-color": "#EAE6E1",
+        "fill-opacity": 0.8
+      }
+    },
+    {
+      "id": "landuse-cemetery",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "==",
+        "landuse",
+        "cemetery"
+      ],
+      "paint": {
+        "fill-color": "#D5E3CF",
+        "fill-opacity": 0.9
+      }
+    },
+    {
+      "id": "landuse-military",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "==",
+        "landuse",
+        "military"
+      ],
+      "paint": {
+        "fill-color": "#EAE3D8",
+        "fill-opacity": 0.8
+      }
+    },
+    {
+      "id": "park-layer",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "any",
+        [
+          "in",
+          "leisure",
+          "park",
+          "garden",
+          "nature_reserve",
+          "pitch",
+          "playground"
+        ],
+        [
+          "in",
+          "landuse",
+          "grass",
+          "meadow",
+          "forest"
+        ],
+        [
+          "in",
+          "natural",
+          "wood",
+          "scrub",
+          "heath"
+        ]
+      ],
+      "paint": {
+        "fill-color": [
+          "match",
+          [
+            "get",
+            "leisure"
+          ],
+          "pitch",
+          "#BCDDAF",
+          "#CFE6C4"
+        ],
+        "fill-opacity": 0.95
+      }
+    },
+    {
+      "id": "park-outline",
+      "type": "line",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "in",
+        "leisure",
+        "park",
+        "garden",
+        "nature_reserve"
+      ],
+      "paint": {
+        "line-color": "#A9D39A",
+        "line-width": 0.8,
+        "line-opacity": 0.6
+      }
+    },
+    {
+      "id": "water-polygon",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "any",
+        [
+          "in",
+          "natural",
+          "water",
+          "lake",
+          "bay"
+        ],
+        [
+          "==",
+          "waterway",
+          "riverbank"
+        ],
+        [
+          "in",
+          "landuse",
+          "basin",
+          "reservoir"
+        ],
+        [
+          "==",
+          "amenity",
+          "fountain"
+        ]
+      ],
+      "paint": {
+        "fill-color": "#A6D3EC",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "id": "water-polygon-outline",
+      "type": "line",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "any",
+        [
+          "in",
+          "natural",
+          "water",
+          "lake",
+          "bay"
+        ],
+        [
+          "==",
+          "waterway",
+          "riverbank"
+        ],
+        [
+          "in",
+          "landuse",
+          "basin",
+          "reservoir"
+        ]
+      ],
+      "paint": {
+        "line-color": "#7FBDE0",
+        "line-width": 0.6,
+        "line-opacity": 0.6
+      }
+    },
+    {
+      "id": "waterway-intermittent",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "minzoom": 11,
+      "filter": [
+        "all",
+        [
+          "in",
+          "waterway",
+          "river",
+          "canal",
+          "stream",
+          "drain",
+          "ditch"
+        ],
+        [
+          "any",
+          [
+            "==",
+            "intermittent",
+            "yes"
+          ],
+          [
+            "==",
+            "seasonal",
+            "yes"
+          ]
+        ]
+      ],
+      "paint": {
+        "line-color": "#9CCBE6",
+        "line-width": [
+          "interpolate",
+          [
+            "exponential",
+            1.6
+          ],
+          [
+            "zoom"
+          ],
+          11,
+          0.6,
+          16,
+          3.5
+        ],
+        "line-dasharray": [
+          3,
+          2
+        ]
+      },
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      }
+    },
+    {
+      "id": "waterway-river",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "all",
+        [
+          "==",
+          "waterway",
+          "river"
+        ],
+        [
+          "!=",
+          "intermittent",
+          "yes"
+        ],
+        [
+          "!=",
+          "seasonal",
+          "yes"
+        ]
+      ],
+      "paint": {
+        "line-color": "#7FBDE0",
+        "line-width": [
+          "interpolate",
+          [
+            "exponential",
+            1.6
+          ],
+          [
+            "zoom"
+          ],
+          7,
+          0.8,
+          14,
+          4,
+          16,
+          7
+        ],
+        "line-opacity": 0.95
+      },
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      }
+    },
+    {
+      "id": "waterway-canal",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "minzoom": 11,
+      "filter": [
+        "all",
+        [
+          "==",
+          "waterway",
+          "canal"
+        ],
+        [
+          "!=",
+          "intermittent",
+          "yes"
+        ],
+        [
+          "!=",
+          "seasonal",
+          "yes"
+        ]
+      ],
+      "paint": {
+        "line-color": "#7FBDE0",
+        "line-width": [
+          "interpolate",
+          [
+            "exponential",
+            1.6
+          ],
+          [
+            "zoom"
+          ],
+          11,
+          0.8,
+          16,
+          5
+        ]
+      },
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      }
+    },
+    {
+      "id": "waterway-stream-drain",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "all",
+        [
+          "in",
+          "waterway",
+          "stream",
+          "drain",
+          "ditch"
+        ],
+        [
+          "!=",
+          "intermittent",
+          "yes"
+        ],
+        [
+          "!=",
+          "seasonal",
+          "yes"
+        ],
+        [
+          "!=",
+          "tunnel",
+          "yes"
+        ]
+      ],
+      "minzoom": 13,
+      "paint": {
+        "line-color": "#7FBDE0",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          13,
+          0.8,
+          16,
+          2.5
+        ],
+        "line-opacity": 0.85
+      },
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      }
+    },
+    {
+      "id": "railway-area",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "==",
+        "landuse",
+        "railway"
+      ],
+      "paint": {
+        "fill-color": "#DDE2EA",
+        "fill-opacity": 0.9
+      }
+    },
+    {
+      "id": "railway-rail-casing",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "all",
+        [
+          "in",
+          "railway",
+          "rail",
+          "narrow_gauge",
+          "preserved"
+        ],
+        [
+          "!=",
+          "service",
+          "yard"
+        ],
+        [
+          "!=",
+          "service",
+          "siding"
+        ]
+      ],
+      "minzoom": 8,
+      "paint": {
+        "line-color": "#B0B8C5",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          8,
+          2,
+          12,
+          4,
+          16,
+          8
+        ]
+      }
+    },
+    {
+      "id": "railway-rail-core",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "all",
+        [
+          "in",
+          "railway",
+          "rail",
+          "narrow_gauge",
+          "preserved"
+        ],
+        [
+          "!=",
+          "service",
+          "yard"
+        ],
+        [
+          "!=",
+          "service",
+          "siding"
+        ]
+      ],
+      "minzoom": 8,
+      "paint": {
+        "line-color": "#6B7A8E",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          8,
+          1,
+          12,
+          2.5,
+          16,
+          5
+        ],
+        "line-dasharray": [
+          6,
+          4
+        ]
+      }
+    },
+    {
+      "id": "railway-subway-casing",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "in",
+        "railway",
+        "subway",
+        "light_rail",
+        "tram",
+        "monorail"
+      ],
+      "minzoom": 10,
+      "paint": {
+        "line-color": [
+          "match",
+          [
+            "get",
+            "railway"
+          ],
+          "subway",
+          "#CC2233",
+          "light_rail",
+          "#0066CC",
+          "tram",
+          "#8833BB",
+          "monorail",
+          "#008855",
+          "#BB3344"
+        ],
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          10,
+          1.6,
+          14,
+          3.0,
+          16,
+          4.6,
+          18,
+          7
+        ],
+        "line-opacity": [
+          "case",
+          [
+            "==",
+            [
+              "get",
+              "tunnel"
+            ],
+            "yes"
+          ],
+          0.3,
+          0.9
+        ]
+      }
+    },
+    {
+      "id": "railway-subway-core",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "in",
+        "railway",
+        "subway",
+        "light_rail",
+        "tram",
+        "monorail"
+      ],
+      "minzoom": 10,
+      "paint": {
+        "line-color": [
+          "match",
+          [
+            "get",
+            "railway"
+          ],
+          "subway",
+          "#FF3347",
+          "light_rail",
+          "#2288FF",
+          "tram",
+          "#AA44EE",
+          "monorail",
+          "#00BB66",
+          "#FF4455"
+        ],
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          10,
+          0.8,
+          14,
+          1.6,
+          16,
+          2.6,
+          18,
+          4
+        ],
+        "line-opacity": [
+          "case",
+          [
+            "==",
+            [
+              "get",
+              "tunnel"
+            ],
+            "yes"
+          ],
+          0.3,
+          0.9
+        ],
+        "line-dasharray": [
+          3,
+          2
+        ]
+      }
+    },
+    {
+      "id": "admin-boundary-national",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "all",
+        [
+          "==",
+          "boundary",
+          "administrative"
+        ],
+        [
+          "in",
+          "admin_level",
+          "2",
+          2,
+          "3",
+          3
+        ]
+      ],
+      "paint": {
+        "line-color": "#8E82A6",
+        "line-dasharray": [
+          6,
+          2,
+          2,
+          2
+        ],
+        "line-opacity": 0.85,
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          3,
+          0.8,
+          8,
+          1.6,
+          14,
+          2.4
+        ]
+      }
+    },
+    {
+      "id": "admin-boundary-governorate-poly",
+      "type": "line",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "minzoom": 6,
+      "filter": [
+        "all",
+        [
+          "==",
+          "boundary",
+          "administrative"
+        ],
+        [
+          "in",
+          "admin_level",
+          "4",
+          4,
+          "5",
+          5
+        ]
+      ],
+      "paint": {
+        "line-color": "#B3A8C6",
+        "line-dasharray": [
+          4,
+          3
+        ],
+        "line-opacity": 0.7,
+        "line-width": 0.9
+      }
+    },
+    {
+      "id": "admin-boundary-governorate",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "minzoom": 6,
+      "filter": [
+        "all",
+        [
+          "==",
+          "boundary",
+          "administrative"
+        ],
+        [
+          "in",
+          "admin_level",
+          "4",
+          4,
+          "5",
+          5
+        ]
+      ],
+      "paint": {
+        "line-color": "#B3A8C6",
+        "line-dasharray": [
+          4,
+          3
+        ],
+        "line-opacity": 0.7,
+        "line-width": 0.9
+      }
+    },
+    {
+      "id": "admin-boundary-district-poly",
+      "type": "line",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "minzoom": 9,
+      "filter": [
+        "all",
+        [
+          "==",
+          "boundary",
+          "administrative"
+        ],
+        [
+          "in",
+          "admin_level",
+          "6",
+          6,
+          "7",
+          7,
+          "8",
+          8,
+          "9",
+          9,
+          "10",
+          10
+        ]
+      ],
+      "paint": {
+        "line-color": "#C9C3D3",
+        "line-dasharray": [
+          3,
+          2
+        ],
+        "line-opacity": 0.7,
+        "line-width": 0.8
+      }
+    },
+    {
+      "id": "admin-boundary-district",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "minzoom": 9,
+      "filter": [
+        "all",
+        [
+          "==",
+          "boundary",
+          "administrative"
+        ],
+        [
+          "in",
+          "admin_level",
+          "6",
+          6,
+          "7",
+          7,
+          "8",
+          8,
+          "9",
+          9,
+          "10",
+          10
+        ]
+      ],
+      "paint": {
+        "line-color": "#C9C3D3",
+        "line-dasharray": [
+          3,
+          2
+        ],
+        "line-opacity": 0.7,
+        "line-width": 0.8
+      }
+    },
+    {
+      "id": "building-fill-flat",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "has",
+        "building"
+      ],
+      "paint": {
+        "fill-color": "#E7E2D9",
+        "fill-outline-color": "#D8D1C5",
+        "fill-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          13,
+          0,
+          14.5,
+          1
+        ]
+      },
+      "minzoom": 13
+    },
+    {
+      "id": "overture-building-footprint",
+      "type": "fill",
+      "source": "overture_buildings",
+      "source-layer": "overture_building",
+      "paint": {
+        "fill-color": "#E7E2D9",
+        "fill-outline-color": "#D8D1C5",
+        "fill-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          14,
+          0,
+          15.5,
+          1
+        ]
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "road-casing-track-path",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "minzoom": 14,
+      "filter": [
+        "match",
+        [
+          "get",
+          "highway"
+        ],
+        [
+          "track",
+          "path",
+          "footway",
+          "cycleway",
+          "steps"
+        ],
+        true,
+        false
+      ],
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "#B8AFA2",
+        "line-dasharray": [
+          2,
+          1.6
+        ],
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          14,
+          0.7,
+          16,
+          1.4,
+          18,
+          2.4
+        ],
+        "line-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          14,
+          [
+            "case",
+            [
+              "==",
+              [
+                "get",
+                "tunnel"
+              ],
+              "yes"
+            ],
+            0.0,
+            0.0
+          ],
+          15,
+          [
+            "case",
+            [
+              "==",
+              [
+                "get",
+                "tunnel"
+              ],
+              "yes"
+            ],
+            0.35,
+            1
+          ]
+        ]
+      }
+    },
+    {
+      "id": "road-casing-minor",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "minzoom": 12,
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "#D6D3CC",
+        "line-width": [
+          "interpolate",
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
+          12,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            "service",
+            0.88,
+            1.6
+          ],
+          13,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            "service",
+            1.32,
+            2.4
+          ],
+          14,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            "service",
+            1.98,
+            3.6
+          ],
+          16,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            "service",
+            4.62,
+            8.4
+          ],
+          18,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            "service",
+            8.91,
+            16.2
+          ]
+        ],
+        "line-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          12,
+          [
+            "case",
+            [
+              "==",
+              [
+                "get",
+                "tunnel"
+              ],
+              "yes"
+            ],
+            0.0,
+            0.0
+          ],
+          13,
+          [
+            "case",
+            [
+              "==",
+              [
+                "get",
+                "tunnel"
+              ],
+              "yes"
+            ],
+            0.35,
+            1
+          ]
+        ]
+      },
+      "filter": [
+        "match",
+        [
+          "get",
+          "highway"
+        ],
+        [
+          "residential",
+          "service",
+          "unclassified",
+          "living_street",
+          "pedestrian"
+        ],
+        true,
+        false
+      ]
+    },
+    {
+      "id": "approved-road-casing",
+      "type": "line",
+      "source": "approved_roads",
+      "source-layer": "approved_roads",
+      "minzoom": 12,
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "#D6D3CC",
+        "line-width": [
+          "interpolate",
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
+          12,
+          1.6,
+          13,
+          2.4,
+          14,
+          3.6,
+          16,
+          8.4,
+          18,
+          16.2
+        ],
+        "line-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          12,
+          [
+            "case",
+            [
+              "==",
+              [
+                "get",
+                "tunnel"
+              ],
+              "yes"
+            ],
+            0.0,
+            0.0
+          ],
+          13,
+          [
+            "case",
+            [
+              "==",
+              [
+                "get",
+                "tunnel"
+              ],
+              "yes"
+            ],
+            0.35,
+            1
+          ]
+        ]
+      }
+    },
+    {
+      "id": "road-casing-tertiary",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "minzoom": 11,
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "#D3CDBF",
+        "line-width": [
+          "interpolate",
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
+          11,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            1.1,
+            1.7
+          ],
+          12,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            1.82,
+            2.8
+          ],
+          14,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            3.38,
+            5.2
+          ],
+          16,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            6.44,
+            9.9
+          ],
+          18,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            11.83,
+            18.2
+          ]
+        ],
+        "line-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          11,
+          [
+            "case",
+            [
+              "==",
+              [
+                "get",
+                "tunnel"
+              ],
+              "yes"
+            ],
+            0.1,
+            0.3
+          ],
+          12.5,
+          [
+            "case",
+            [
+              "==",
+              [
+                "get",
+                "tunnel"
+              ],
+              "yes"
+            ],
+            0.35,
+            1
+          ]
+        ]
+      },
+      "filter": [
+        "match",
+        [
+          "get",
+          "highway"
+        ],
+        [
+          "tertiary",
+          "tertiary_link"
+        ],
+        true,
+        false
+      ]
+    },
+    {
+      "id": "road-casing-secondary",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "minzoom": 10,
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "#CCBE98",
+        "line-width": [
+          "interpolate",
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
+          10,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            1.3,
+            2.0
+          ],
+          12,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            2.34,
+            3.6
+          ],
+          14,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            3.9,
+            6.0
+          ],
+          16,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            7.09,
+            10.9
+          ],
+          18,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            13.13,
+            20.2
+          ]
+        ],
+        "line-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          10,
+          [
+            "case",
+            [
+              "==",
+              [
+                "get",
+                "tunnel"
+              ],
+              "yes"
+            ],
+            0.1,
+            0.3
+          ],
+          12,
+          [
+            "case",
+            [
+              "==",
+              [
+                "get",
+                "tunnel"
+              ],
+              "yes"
+            ],
+            0.35,
+            1
+          ]
+        ]
+      },
+      "filter": [
+        "match",
+        [
+          "get",
+          "highway"
+        ],
+        [
+          "secondary",
+          "secondary_link"
+        ],
+        true,
+        false
+      ]
+    },
+    {
+      "id": "road-casing-primary",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "minzoom": 7,
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "#C6AA6C",
+        "line-width": [
+          "interpolate",
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
+          7,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            0.98,
+            1.5
+          ],
+          8,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            1.17,
+            1.8
+          ],
+          10,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            1.82,
+            2.8
+          ],
+          12,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            2.73,
+            4.2
+          ],
+          14,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            4.42,
+            6.8
+          ],
+          16,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            7.74,
+            11.9
+          ],
+          18,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            14.43,
+            22.2
+          ]
+        ],
+        "line-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          9,
+          [
+            "case",
+            [
+              "==",
+              [
+                "get",
+                "tunnel"
+              ],
+              "yes"
+            ],
+            0.0,
+            0.0
+          ],
+          10.5,
+          [
+            "case",
+            [
+              "==",
+              [
+                "get",
+                "tunnel"
+              ],
+              "yes"
+            ],
+            0.35,
+            1
+          ]
+        ]
+      },
+      "filter": [
+        "match",
+        [
+          "get",
+          "highway"
+        ],
+        [
+          "primary",
+          "primary_link"
+        ],
+        true,
+        false
+      ]
+    },
+    {
+      "id": "road-casing-motorway-trunk",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "minzoom": 5,
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": [
+          "case",
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "trunk",
+              "trunk_link"
+            ],
+            true,
+            false
+          ],
+          "#B48E3C",
+          "#A9802A"
+        ],
+        "line-width": [
+          "interpolate",
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
+          5,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            1.23,
+            1.9
+          ],
+          7,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            1.56,
+            2.4
+          ],
+          8,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            1.76,
+            2.7
+          ],
+          10,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            2.34,
+            3.6
+          ],
+          12,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            3.25,
+            5.0
+          ],
+          14,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            4.94,
+            7.6
+          ],
+          16,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            8.71,
+            13.4
+          ],
+          18,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            16.38,
+            25.2
+          ]
+        ],
+        "line-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          7.5,
+          [
+            "case",
+            [
+              "==",
+              [
+                "get",
+                "tunnel"
+              ],
+              "yes"
+            ],
+            0.0,
+            0.0
+          ],
+          9.5,
+          [
+            "case",
+            [
+              "==",
+              [
+                "get",
+                "tunnel"
+              ],
+              "yes"
+            ],
+            0.35,
+            1
+          ]
+        ]
+      },
+      "filter": [
+        "match",
+        [
+          "get",
+          "highway"
+        ],
+        [
+          "motorway",
+          "motorway_link",
+          "trunk",
+          "trunk_link"
+        ],
+        true,
+        false
+      ]
+    },
+    {
+      "id": "road-core-minor",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "minzoom": 12,
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "#FFFFFF",
+        "line-width": [
+          "interpolate",
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
+          12,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            "service",
+            0.22,
+            0.4
+          ],
+          13,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            "service",
+            0.55,
+            1.0
+          ],
+          14,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            "service",
+            1.1,
+            2.0
+          ],
+          16,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            "service",
+            3.3,
+            6.0
+          ],
+          18,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            "service",
+            7.15,
+            13.0
+          ]
+        ],
+        "line-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          12,
+          [
+            "case",
+            [
+              "==",
+              [
+                "get",
+                "tunnel"
+              ],
+              "yes"
+            ],
+            0.1,
+            0.3
+          ],
+          13,
+          [
+            "case",
+            [
+              "==",
+              [
+                "get",
+                "tunnel"
+              ],
+              "yes"
+            ],
+            0.35,
+            1
+          ]
+        ]
+      },
+      "filter": [
+        "match",
+        [
+          "get",
+          "highway"
+        ],
+        [
+          "residential",
+          "service",
+          "unclassified",
+          "living_street",
+          "pedestrian"
+        ],
+        true,
+        false
+      ]
+    },
+    {
+      "id": "approved-road-core",
+      "type": "line",
+      "source": "approved_roads",
+      "source-layer": "approved_roads",
+      "minzoom": 12,
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "#FFFFFF",
+        "line-width": [
+          "interpolate",
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
+          12,
+          0.4,
+          13,
+          1.0,
+          14,
+          2.0,
+          16,
+          6.0,
+          18,
+          13.0
+        ],
+        "line-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          12,
+          [
+            "case",
+            [
+              "==",
+              [
+                "get",
+                "tunnel"
+              ],
+              "yes"
+            ],
+            0.1,
+            0.3
+          ],
+          13,
+          [
+            "case",
+            [
+              "==",
+              [
+                "get",
+                "tunnel"
+              ],
+              "yes"
+            ],
+            0.35,
+            1
+          ]
+        ]
+      }
+    },
+    {
+      "id": "road-core-tertiary",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "minzoom": 11,
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "#FFFFFF",
+        "line-width": [
+          "interpolate",
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
+          11,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            0.45,
+            0.7
+          ],
+          12,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            1.04,
+            1.6
+          ],
+          14,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            2.34,
+            3.6
+          ],
+          16,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            4.88,
+            7.5
+          ],
+          18,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            9.75,
+            15.0
+          ]
+        ],
+        "line-opacity": [
+          "case",
+          [
+            "==",
+            [
+              "get",
+              "tunnel"
+            ],
+            "yes"
+          ],
+          0.35,
+          1
+        ]
+      },
+      "filter": [
+        "match",
+        [
+          "get",
+          "highway"
+        ],
+        [
+          "tertiary",
+          "tertiary_link"
+        ],
+        true,
+        false
+      ]
+    },
+    {
+      "id": "road-core-secondary",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "minzoom": 10,
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          9,
+          "#DDD2B4",
+          12,
+          "#FFFAEE",
+          16,
+          "#FFFFFF"
+        ],
+        "line-width": [
+          "interpolate",
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
+          10,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            0.65,
+            1.0
+          ],
+          12,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            1.56,
+            2.4
+          ],
+          14,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            2.86,
+            4.4
+          ],
+          16,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            5.53,
+            8.5
+          ],
+          18,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            11.05,
+            17.0
+          ]
+        ],
+        "line-opacity": [
+          "case",
+          [
+            "==",
+            [
+              "get",
+              "tunnel"
+            ],
+            "yes"
+          ],
+          0.35,
+          1
+        ]
+      },
+      "filter": [
+        "match",
+        [
+          "get",
+          "highway"
+        ],
+        [
+          "secondary",
+          "secondary_link"
+        ],
+        true,
+        false
+      ]
+    },
+    {
+      "id": "road-core-primary",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "minzoom": 7,
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          7,
+          "#D6BB78",
+          10,
+          "#E9D39A",
+          12,
+          "#F8E8BC",
+          16,
+          "#FCF1D4"
+        ],
+        "line-width": [
+          "interpolate",
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
+          7,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            0.45,
+            0.7
+          ],
+          8,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            0.65,
+            1.0
+          ],
+          10,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            1.17,
+            1.8
+          ],
+          12,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            1.95,
+            3.0
+          ],
+          14,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            3.38,
+            5.2
+          ],
+          16,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            6.17,
+            9.5
+          ],
+          18,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            12.35,
+            19.0
+          ]
+        ],
+        "line-opacity": [
+          "case",
+          [
+            "==",
+            [
+              "get",
+              "tunnel"
+            ],
+            "yes"
+          ],
+          0.35,
+          1
+        ]
+      },
+      "filter": [
+        "match",
+        [
+          "get",
+          "highway"
+        ],
+        [
+          "primary",
+          "primary_link"
+        ],
+        true,
+        false
+      ]
+    },
+    {
+      "id": "road-core-motorway-trunk",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "minzoom": 5,
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          5,
+          [
+            "case",
+            [
+              "match",
+              [
+                "get",
+                "highway"
+              ],
+              [
+                "trunk",
+                "trunk_link"
+              ],
+              true,
+              false
+            ],
+            "#D2A443",
+            "#C9962E"
+          ],
+          8,
+          [
+            "case",
+            [
+              "match",
+              [
+                "get",
+                "highway"
+              ],
+              [
+                "trunk",
+                "trunk_link"
+              ],
+              true,
+              false
+            ],
+            "#E0BA5E",
+            "#D9AE48"
+          ],
+          12,
+          [
+            "case",
+            [
+              "match",
+              [
+                "get",
+                "highway"
+              ],
+              [
+                "trunk",
+                "trunk_link"
+              ],
+              true,
+              false
+            ],
+            "#F2D27F",
+            "#EDC765"
+          ],
+          16,
+          [
+            "case",
+            [
+              "match",
+              [
+                "get",
+                "highway"
+              ],
+              [
+                "trunk",
+                "trunk_link"
+              ],
+              true,
+              false
+            ],
+            "#F7E0A0",
+            "#F4D684"
+          ]
+        ],
+        "line-width": [
+          "interpolate",
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
+          5,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            0.72,
+            1.1
+          ],
+          7,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            1.04,
+            1.6
+          ],
+          8,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            1.23,
+            1.9
+          ],
+          10,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            1.69,
+            2.6
+          ],
+          12,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            2.47,
+            3.8
+          ],
+          14,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            3.9,
+            6.0
+          ],
+          16,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            7.15,
+            11.0
+          ],
+          18,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway_link",
+              "trunk_link",
+              "primary_link",
+              "secondary_link",
+              "tertiary_link"
+            ],
+            14.3,
+            22.0
+          ]
+        ],
+        "line-opacity": [
+          "case",
+          [
+            "==",
+            [
+              "get",
+              "tunnel"
+            ],
+            "yes"
+          ],
+          0.35,
+          1
+        ]
+      },
+      "filter": [
+        "match",
+        [
+          "get",
+          "highway"
+        ],
+        [
+          "motorway",
+          "motorway_link",
+          "trunk",
+          "trunk_link"
+        ],
+        true,
+        false
+      ]
+    },
+    {
+      "id": "building-3d-osm",
+      "type": "fill-extrusion",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "minzoom": 13,
+      "filter": [
+        "has",
+        "building"
+      ],
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "fill-extrusion-color": "#DDD8D0",
+        "fill-extrusion-height": [
+          "coalesce",
+          [
+            "to-number",
+            [
+              "get",
+              "height"
+            ],
+            null
+          ],
+          [
+            "*",
+            [
+              "coalesce",
+              [
+                "to-number",
+                [
+                  "get",
+                  "building:levels"
+                ],
+                null
+              ],
+              3
+            ],
+            3.5
+          ],
+          12
+        ],
+        "fill-extrusion-base": 0,
+        "fill-extrusion-opacity": 0.85
+      }
+    },
+    {
+      "id": "building-3d",
+      "type": "fill-extrusion",
+      "source": "overture_buildings",
+      "source-layer": "overture_building",
+      "minzoom": 13,
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "fill-extrusion-color": "#DDD8D0",
+        "fill-extrusion-height": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          13,
+          [
+            "*",
+            [
+              "coalesce",
+              [
+                "to-number",
+                [
+                  "get",
+                  "num_floors"
+                ],
+                null
+              ],
+              3
+            ],
+            2.5
+          ],
+          17,
+          [
+            "coalesce",
+            [
+              "to-number",
+              [
+                "get",
+                "height"
+              ],
+              null
+            ],
+            [
+              "*",
+              [
+                "coalesce",
+                [
+                  "to-number",
+                  [
+                    "get",
+                    "num_floors"
+                  ],
+                  null
+                ],
+                3
+              ],
+              3.5
+            ],
+            12
+          ]
+        ],
+        "fill-extrusion-base": 0,
+        "fill-extrusion-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          13,
+          0.6,
+          16,
+          0.9
+        ]
+      }
+    },
+    {
+      "id": "bridge-casing",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "minzoom": 12,
+      "filter": [
+        "all",
+        [
+          "has",
+          "bridge"
+        ],
+        [
+          "!",
+          [
+            "match",
+            [
+              "get",
+              "bridge"
+            ],
+            [
+              "no",
+              "false",
+              "0"
+            ],
+            true,
+            false
+          ]
+        ],
+        [
+          "match",
+          [
+            "get",
+            "highway"
+          ],
+          [
+            "motorway",
+            "trunk",
+            "primary",
+            "secondary",
+            "tertiary",
+            "residential",
+            "unclassified",
+            "living_street",
+            "motorway_link",
+            "trunk_link",
+            "primary_link",
+            "secondary_link",
+            "tertiary_link"
+          ],
+          true,
+          false
+        ]
+      ],
+      "layout": {
+        "line-cap": "butt",
+        "line-join": "round",
+        "line-sort-key": [
+          "+",
+          [
+            "*",
+            10,
+            [
+              "to-number",
+              [
+                "coalesce",
+                [
+                  "get",
+                  "layer"
+                ],
+                "1"
+              ],
+              1
+            ]
+          ],
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway",
+              "trunk"
+            ],
+            4,
+            [
+              "primary"
+            ],
+            3,
+            [
+              "secondary"
+            ],
+            2,
+            [
+              "tertiary"
+            ],
+            1,
+            0
+          ]
+        ]
+      },
+      "paint": {
+        "line-color": "#8F887E",
+        "line-width": [
+          "interpolate",
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
+          12,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway",
+              "motorway_link",
+              "trunk",
+              "trunk_link"
+            ],
+            6.0,
+            [
+              "primary",
+              "primary_link"
+            ],
+            5.2,
+            [
+              "secondary",
+              "secondary_link"
+            ],
+            4.6,
+            [
+              "tertiary",
+              "tertiary_link"
+            ],
+            3.8,
+            2.6
+          ],
+          14,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway",
+              "motorway_link",
+              "trunk",
+              "trunk_link"
+            ],
+            8.6,
+            [
+              "primary",
+              "primary_link"
+            ],
+            7.8,
+            [
+              "secondary",
+              "secondary_link"
+            ],
+            7.0,
+            [
+              "tertiary",
+              "tertiary_link"
+            ],
+            6.2,
+            4.6
+          ],
+          16,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway",
+              "motorway_link",
+              "trunk",
+              "trunk_link"
+            ],
+            14.4,
+            [
+              "primary",
+              "primary_link"
+            ],
+            12.9,
+            [
+              "secondary",
+              "secondary_link"
+            ],
+            11.9,
+            [
+              "tertiary",
+              "tertiary_link"
+            ],
+            10.9,
+            9.4
+          ],
+          18,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway",
+              "motorway_link",
+              "trunk",
+              "trunk_link"
+            ],
+            26.2,
+            [
+              "primary",
+              "primary_link"
+            ],
+            23.2,
+            [
+              "secondary",
+              "secondary_link"
+            ],
+            21.2,
+            [
+              "tertiary",
+              "tertiary_link"
+            ],
+            19.2,
+            17.2
+          ]
+        ]
+      }
+    },
+    {
+      "id": "bridge-core",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "minzoom": 12,
+      "filter": [
+        "all",
+        [
+          "has",
+          "bridge"
+        ],
+        [
+          "!",
+          [
+            "match",
+            [
+              "get",
+              "bridge"
+            ],
+            [
+              "no",
+              "false",
+              "0"
+            ],
+            true,
+            false
+          ]
+        ],
+        [
+          "match",
+          [
+            "get",
+            "highway"
+          ],
+          [
+            "motorway",
+            "trunk",
+            "primary",
+            "secondary",
+            "tertiary",
+            "residential",
+            "unclassified",
+            "living_street",
+            "motorway_link",
+            "trunk_link",
+            "primary_link",
+            "secondary_link",
+            "tertiary_link"
+          ],
+          true,
+          false
+        ]
+      ],
+      "layout": {
+        "line-cap": "butt",
+        "line-join": "round",
+        "line-sort-key": [
+          "+",
+          [
+            "*",
+            10,
+            [
+              "to-number",
+              [
+                "coalesce",
+                [
+                  "get",
+                  "layer"
+                ],
+                "1"
+              ],
+              1
+            ]
+          ],
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway",
+              "trunk"
+            ],
+            4,
+            [
+              "primary"
+            ],
+            3,
+            [
+              "secondary"
+            ],
+            2,
+            [
+              "tertiary"
+            ],
+            1,
+            0
+          ]
+        ]
+      },
+      "paint": {
+        "line-color": [
+          "match",
+          [
+            "get",
+            "highway"
+          ],
+          [
+            "motorway",
+            "motorway_link"
+          ],
+          "#EDC765",
+          [
+            "trunk",
+            "trunk_link"
+          ],
+          "#F2D27F",
+          [
+            "primary",
+            "primary_link"
+          ],
+          "#F8E8BC",
+          [
+            "secondary",
+            "secondary_link"
+          ],
+          "#FFFAEE",
+          [
+            "tertiary",
+            "tertiary_link"
+          ],
+          "#FFFFFF",
+          "#FFFFFF"
+        ],
+        "line-width": [
+          "interpolate",
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
+          12,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway",
+              "motorway_link",
+              "trunk",
+              "trunk_link"
+            ],
+            3.8,
+            [
+              "primary",
+              "primary_link"
+            ],
+            3.0,
+            [
+              "secondary",
+              "secondary_link"
+            ],
+            2.4,
+            [
+              "tertiary",
+              "tertiary_link"
+            ],
+            1.6,
+            0.4
+          ],
+          14,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway",
+              "motorway_link",
+              "trunk",
+              "trunk_link"
+            ],
+            6.0,
+            [
+              "primary",
+              "primary_link"
+            ],
+            5.2,
+            [
+              "secondary",
+              "secondary_link"
+            ],
+            4.4,
+            [
+              "tertiary",
+              "tertiary_link"
+            ],
+            3.6,
+            2.0
+          ],
+          16,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway",
+              "motorway_link",
+              "trunk",
+              "trunk_link"
+            ],
+            11.0,
+            [
+              "primary",
+              "primary_link"
+            ],
+            9.5,
+            [
+              "secondary",
+              "secondary_link"
+            ],
+            8.5,
+            [
+              "tertiary",
+              "tertiary_link"
+            ],
+            7.5,
+            6.0
+          ],
+          18,
+          [
+            "match",
+            [
+              "get",
+              "highway"
+            ],
+            [
+              "motorway",
+              "motorway_link",
+              "trunk",
+              "trunk_link"
+            ],
+            22.0,
+            [
+              "primary",
+              "primary_link"
+            ],
+            19.0,
+            [
+              "secondary",
+              "secondary_link"
+            ],
+            17.0,
+            [
+              "tertiary",
+              "tertiary_link"
+            ],
+            15.0,
+            13.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "road-direction-arrows",
+      "type": "symbol",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "minzoom": 15.5,
+      "filter": [
+        "all",
+        [
+          "match",
+          [
+            "get",
+            "highway"
+          ],
+          [
+            "motorway",
+            "motorway_link",
+            "trunk",
+            "trunk_link",
+            "primary",
+            "primary_link",
+            "secondary",
+            "secondary_link",
+            "tertiary",
+            "tertiary_link",
+            "residential",
+            "unclassified",
+            "living_street",
+            "service"
+          ],
+          true,
+          false
+        ],
+        [
+          "any",
+          [
+            "match",
+            [
+              "get",
+              "oneway"
+            ],
+            [
+              "yes",
+              "true",
+              "1",
+              "-1"
+            ],
+            true,
+            false
+          ],
+          [
+            "match",
+            [
+              "get",
+              "junction"
+            ],
+            [
+              "roundabout",
+              "circular"
+            ],
+            true,
+            false
+          ]
+        ],
+        [
+          "!=",
+          [
+            "get",
+            "oneway"
+          ],
+          "no"
+        ]
+      ],
+      "layout": {
+        "symbol-placement": "line",
+        "symbol-spacing": 200,
+        "icon-image": "arrow",
+        "icon-rotate": [
+          "match",
+          [
+            "get",
+            "oneway"
+          ],
+          "-1",
+          180,
+          0
+        ],
+        "icon-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          15.5,
+          0.7,
+          17,
+          0.9,
+          18,
+          1.05
+        ],
+        "icon-rotation-alignment": "map",
+        "icon-pitch-alignment": "map",
+        "icon-keep-upright": false,
+        "icon-allow-overlap": false,
+        "icon-ignore-placement": true,
+        "icon-padding": 1
+      },
+      "paint": {
+        "icon-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          15.5,
+          0.6,
+          16.5,
+          0.9
+        ]
+      }
+    },
+    {
+      "id": "railway-label",
+      "type": "symbol",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "in",
+        "railway",
+        "rail",
+        "subway",
+        "light_rail",
+        "tram"
+      ],
+      "minzoom": 13,
+      "layout": {
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name:ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Medium"
+        ],
+        "text-size": 10,
+        "symbol-placement": "line",
+        "text-padding": 6,
+        "text-allow-overlap": false
+      },
+      "paint": {
+        "text-color": [
+          "match",
+          [
+            "get",
+            "railway"
+          ],
+          "subway",
+          "#CC2233",
+          "light_rail",
+          "#0055BB",
+          "tram",
+          "#7722AA",
+          "#4A5568"
+        ],
+        "text-halo-color": "#FFFFFF",
+        "text-halo-width": 2.4,
+        "text-halo-blur": 0.3
+      }
+    },
+    {
+      "id": "waterway-label",
+      "type": "symbol",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "all",
+        [
+          "in",
+          "waterway",
+          "river",
+          "canal"
+        ],
+        [
+          "!=",
+          "intermittent",
+          "yes"
+        ],
+        [
+          "has",
+          "name"
+        ]
+      ],
+      "minzoom": 12,
+      "layout": {
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name:ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Medium"
+        ],
+        "text-size": 11,
+        "symbol-placement": "line",
+        "text-letter-spacing": 0.1
+      },
+      "paint": {
+        "text-color": "#2E7AA8",
+        "text-halo-color": "#FFFFFF",
+        "text-halo-width": 2.4,
+        "text-halo-blur": 0.3
+      }
+    },
+    {
+      "id": "building-number-polygon",
+      "type": "symbol",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "minzoom": 17,
+      "filter": [
+        "has",
+        "addr:housenumber"
+      ],
+      "layout": {
+        "text-field": "{addr:housenumber}",
+        "text-font": [
+          "Noto Sans Regular"
+        ],
+        "text-size": 9.5,
+        "text-allow-overlap": false,
+        "text-ignore-placement": false
+      },
+      "paint": {
+        "text-color": "#9A9184",
+        "text-halo-color": "#FFFFFF",
+        "text-halo-width": 1.8,
+        "text-halo-blur": 0.3
+      }
+    },
+    {
+      "id": "building-number-point",
+      "type": "symbol",
+      "source": "local-osm-points",
+      "source-layer": "planet_osm_point",
+      "minzoom": 17,
+      "filter": [
+        "has",
+        "addr:housenumber"
+      ],
+      "layout": {
+        "text-field": "{addr:housenumber}",
+        "text-font": [
+          "Noto Sans Regular"
+        ],
+        "text-size": 9.5,
+        "text-allow-overlap": false
+      },
+      "paint": {
+        "text-color": "#9A9184",
+        "text-halo-color": "#FFFFFF",
+        "text-halo-width": 1.8,
+        "text-halo-blur": 0.3
+      }
+    },
+    {
+      "id": "places-golden-homes",
+      "type": "symbol",
+      "source": "places_golden",
+      "source-layer": "places_golden",
+      "minzoom": 17.5,
+      "filter": [
+        "all",
+        [
+          "all",
+          [
+            "!=",
+            [
+              "get",
+              "kind"
+            ],
+            "street"
+          ],
+          [
+            "!",
+            [
+              "in",
+              "Ø",
+              [
+                "coalesce",
+                [
+                  "get",
+                  "name_ar"
+                ],
+                [
+                  "get",
+                  "name"
+                ],
+                ""
+              ]
+            ]
+          ]
+        ],
+        [
+          "any",
+          [
+            "==",
+            [
+              "coalesce",
+              [
+                "get",
+                "category_key"
+              ],
+              ""
+            ],
+            "residential"
+          ],
+          [
+            "all",
+            [
+              "==",
+              [
+                "coalesce",
+                [
+                  "get",
+                  "category_key"
+                ],
+                ""
+              ],
+              ""
+            ],
+            [
+              "any",
+              [
+                "match",
+                [
+                  "slice",
+                  [
+                    "coalesce",
+                    [
+                      "get",
+                      "name_ar"
+                    ],
+                    [
+                      "get",
+                      "name"
+                    ],
+                    ""
+                  ],
+                  0,
+                  4
+                ],
+                [
+                  "بيت ",
+                  "سطح ",
+                  "شقة ",
+                  "فلة "
+                ],
+                true,
+                false
+              ],
+              [
+                "all",
+                [
+                  "==",
+                  [
+                    "slice",
+                    [
+                      "coalesce",
+                      [
+                        "get",
+                        "name_ar"
+                      ],
+                      [
+                        "get",
+                        "name"
+                      ],
+                      ""
+                    ],
+                    0,
+                    4
+                  ],
+                  "دار "
+                ],
+                [
+                  "!=",
+                  [
+                    "slice",
+                    [
+                      "coalesce",
+                      [
+                        "get",
+                        "name_ar"
+                      ],
+                      [
+                        "get",
+                        "name"
+                      ],
+                      ""
+                    ],
+                    0,
+                    6
+                  ],
+                  "دار ال"
+                ]
+              ],
+              [
+                "match",
+                [
+                  "slice",
+                  [
+                    "coalesce",
+                    [
+                      "get",
+                      "name_ar"
+                    ],
+                    [
+                      "get",
+                      "name"
+                    ],
+                    ""
+                  ],
+                  0,
+                  5
+                ],
+                [
+                  "منزل ",
+                  "فيلا ",
+                  "فيلة "
+                ],
+                true,
+                false
+              ],
+              [
+                "==",
+                [
+                  "slice",
+                  [
+                    "coalesce",
+                    [
+                      "get",
+                      "name_ar"
+                    ],
+                    [
+                      "get",
+                      "name"
+                    ],
+                    ""
+                  ],
+                  0,
+                  6
+                ],
+                "عمارة "
+              ]
+            ]
+          ]
+        ]
+      ],
+      "layout": {
+        "icon-image": "badge-home",
+        "icon-size": 1,
+        "icon-padding": 1,
+        "text-field": [
+          "step",
+          [
+            "zoom"
+          ],
+          "",
+          18.5,
+          [
+            "coalesce",
+            [
+              "get",
+              "name_ar"
+            ],
+            [
+              "get",
+              "name"
+            ],
+            ""
+          ]
+        ],
+        "text-font": [
+          "Noto Sans Regular"
+        ],
+        "text-size": 10,
+        "text-max-width": 8,
+        "text-variable-anchor": [
+          "top",
+          "bottom",
+          "right",
+          "left"
+        ],
+        "text-radial-offset": 0.7,
+        "text-optional": true,
+        "symbol-sort-key": 1000
+      },
+      "paint": {
+        "text-color": "#64748B",
+        "text-halo-color": "#FFFFFF",
+        "text-halo-width": 2.0,
+        "text-halo-blur": 0.3
+      }
+    },
+    {
+      "id": "overture-building-names",
+      "type": "symbol",
+      "source": "overture_buildings",
+      "source-layer": "overture_building",
+      "minzoom": 17,
+      "filter": [
+        "all",
+        [
+          "has",
+          "name_primary"
+        ],
+        [
+          "!",
+          [
+            "any",
+            [
+              "match",
+              [
+                "slice",
+                [
+                  "coalesce",
+                  [
+                    "get",
+                    "name_primary"
+                  ],
+                  ""
+                ],
+                0,
+                4
+              ],
+              [
+                "بيت ",
+                "سطح ",
+                "شقة ",
+                "فلة "
+              ],
+              true,
+              false
+            ],
+            [
+              "all",
+              [
+                "==",
+                [
+                  "slice",
+                  [
+                    "coalesce",
+                    [
+                      "get",
+                      "name_primary"
+                    ],
+                    ""
+                  ],
+                  0,
+                  4
+                ],
+                "دار "
+              ],
+              [
+                "!=",
+                [
+                  "slice",
+                  [
+                    "coalesce",
+                    [
+                      "get",
+                      "name_primary"
+                    ],
+                    ""
+                  ],
+                  0,
+                  6
+                ],
+                "دار ال"
+              ]
+            ],
+            [
+              "match",
+              [
+                "slice",
+                [
+                  "coalesce",
+                  [
+                    "get",
+                    "name_primary"
+                  ],
+                  ""
+                ],
+                0,
+                5
+              ],
+              [
+                "منزل ",
+                "فيلا ",
+                "فيلة "
+              ],
+              true,
+              false
+            ],
+            [
+              "==",
+              [
+                "slice",
+                [
+                  "coalesce",
+                  [
+                    "get",
+                    "name_primary"
+                  ],
+                  ""
+                ],
+                0,
+                6
+              ],
+              "عمارة "
+            ]
+          ]
+        ]
+      ],
+      "layout": {
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name_primary"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Medium"
+        ],
+        "text-size": 10,
+        "text-max-width": 8,
+        "text-padding": 4
+      },
+      "paint": {
+        "text-color": "#6B7280",
+        "text-halo-color": "#FFFFFF",
+        "text-halo-width": 2.4,
+        "text-halo-blur": 0.3
+      }
+    },
+    {
+      "id": "overture-street-names",
+      "type": "symbol",
+      "source": "overture_segments",
+      "source-layer": "overture_segment",
+      "minzoom": 15,
+      "layout": {
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name_primary"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Medium"
+        ],
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          15,
+          10.5,
+          18,
+          13
+        ],
+        "symbol-placement": "line",
+        "symbol-spacing": 450,
+        "text-padding": 10,
+        "text-max-angle": 30,
+        "text-rotation-alignment": "map",
+        "text-letter-spacing": 0.02
+      },
+      "paint": {
+        "text-color": "#4B5563",
+        "text-halo-color": "#FFFFFF",
+        "text-halo-width": 2.4,
+        "text-halo-blur": 0.3
+      },
+      "filter": [
+        "has",
+        "name_primary"
+      ]
+    },
+    {
+      "id": "places-golden-labels",
+      "type": "symbol",
+      "source": "places_golden",
+      "source-layer": "places_golden",
+      "minzoom": 16.5,
+      "filter": [
+        "all",
+        [
+          "all",
+          [
+            "!=",
+            [
+              "get",
+              "kind"
+            ],
+            "street"
+          ],
+          [
+            "!",
+            [
+              "in",
+              "Ø",
+              [
+                "coalesce",
+                [
+                  "get",
+                  "name_ar"
+                ],
+                [
+                  "get",
+                  "name"
+                ],
+                ""
+              ]
+            ]
+          ]
+        ],
+        [
+          "!",
+          [
+            "any",
+            [
+              "==",
+              [
+                "coalesce",
+                [
+                  "get",
+                  "category_key"
+                ],
+                ""
+              ],
+              "residential"
+            ],
+            [
+              "all",
+              [
+                "==",
+                [
+                  "coalesce",
+                  [
+                    "get",
+                    "category_key"
+                  ],
+                  ""
+                ],
+                ""
+              ],
+              [
+                "any",
+                [
+                  "match",
+                  [
+                    "slice",
+                    [
+                      "coalesce",
+                      [
+                        "get",
+                        "name_ar"
+                      ],
+                      [
+                        "get",
+                        "name"
+                      ],
+                      ""
+                    ],
+                    0,
+                    4
+                  ],
+                  [
+                    "بيت ",
+                    "سطح ",
+                    "شقة ",
+                    "فلة "
+                  ],
+                  true,
+                  false
+                ],
+                [
+                  "all",
+                  [
+                    "==",
+                    [
+                      "slice",
+                      [
+                        "coalesce",
+                        [
+                          "get",
+                          "name_ar"
+                        ],
+                        [
+                          "get",
+                          "name"
+                        ],
+                        ""
+                      ],
+                      0,
+                      4
+                    ],
+                    "دار "
+                  ],
+                  [
+                    "!=",
+                    [
+                      "slice",
+                      [
+                        "coalesce",
+                        [
+                          "get",
+                          "name_ar"
+                        ],
+                        [
+                          "get",
+                          "name"
+                        ],
+                        ""
+                      ],
+                      0,
+                      6
+                    ],
+                    "دار ال"
+                  ]
+                ],
+                [
+                  "match",
+                  [
+                    "slice",
+                    [
+                      "coalesce",
+                      [
+                        "get",
+                        "name_ar"
+                      ],
+                      [
+                        "get",
+                        "name"
+                      ],
+                      ""
+                    ],
+                    0,
+                    5
+                  ],
+                  [
+                    "منزل ",
+                    "فيلا ",
+                    "فيلة "
+                  ],
+                  true,
+                  false
+                ],
+                [
+                  "==",
+                  [
+                    "slice",
+                    [
+                      "coalesce",
+                      [
+                        "get",
+                        "name_ar"
+                      ],
+                      [
+                        "get",
+                        "name"
+                      ],
+                      ""
+                    ],
+                    0,
+                    6
+                  ],
+                  "عمارة "
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "==",
+          [
+            "coalesce",
+            [
+              "get",
+              "category_key"
+            ],
+            ""
+          ],
+          ""
+        ],
+        [
+          "<",
+          [
+            "to-number",
+            [
+              "get",
+              "popularity_score"
+            ],
+            0
+          ],
+          60
+        ]
+      ],
+      "layout": {
+        "icon-image": [
+          "match",
+          [
+            "coalesce",
+            [
+              "get",
+              "category_key"
+            ],
+            ""
+          ],
+          "supermarket",
+          "badge-supermarket",
+          "shop",
+          "badge-shop",
+          "mall",
+          "badge-mall",
+          "worship",
+          "badge-worship",
+          "bakery",
+          "badge-bakery",
+          "restaurant",
+          "badge-restaurant",
+          "cafe",
+          "badge-cafe",
+          "hospital",
+          "badge-hospital",
+          "clinic",
+          "badge-clinic",
+          "pharmacy",
+          "badge-pharmacy",
+          [
+            "park",
+            "natural",
+            "farm"
+          ],
+          "badge-park",
+          "hotel",
+          "badge-hotel",
+          [
+            "school",
+            "kindergarten"
+          ],
+          "badge-school",
+          "library",
+          "badge-library",
+          [
+            "bank",
+            "exchange"
+          ],
+          "badge-bank",
+          "fuel",
+          "badge-fuel",
+          [
+            "government",
+            "police"
+          ],
+          "badge-government",
+          "tourism",
+          "badge-tourism",
+          "salon",
+          "badge-salon",
+          "car_service",
+          "badge-car",
+          "gym",
+          "badge-gym",
+          [
+            "office",
+            "industry",
+            "service",
+            "events"
+          ],
+          "badge-office",
+          "badge-generic"
+        ],
+        "icon-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          14,
+          0.72,
+          16,
+          0.85,
+          18,
+          1.0
+        ],
+        "icon-padding": 2,
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name_ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Medium"
+        ],
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          14,
+          10.5,
+          16,
+          11.5,
+          18,
+          13
+        ],
+        "text-max-width": 8,
+        "text-padding": 3,
+        "text-variable-anchor": [
+          "top",
+          "bottom",
+          "right",
+          "left"
+        ],
+        "text-radial-offset": 1.05,
+        "text-justify": "auto",
+        "text-optional": false,
+        "symbol-sort-key": [
+          "-",
+          [
+            "to-number",
+            [
+              "get",
+              "popularity_score"
+            ],
+            0
+          ]
+        ]
+      },
+      "paint": {
+        "text-color": [
+          "match",
+          [
+            "coalesce",
+            [
+              "get",
+              "category_key"
+            ],
+            ""
+          ],
+          "restaurant",
+          "#C2410C",
+          "cafe",
+          "#78350F",
+          "bakery",
+          "#B45309",
+          "shop",
+          "#1D4ED8",
+          "supermarket",
+          "#047857",
+          "mall",
+          "#6D28D9",
+          "hospital",
+          "#BE123C",
+          [
+            "clinic",
+            "pharmacy"
+          ],
+          "#0E7490",
+          "worship",
+          "#0F766E",
+          [
+            "park",
+            "natural",
+            "farm"
+          ],
+          "#047857",
+          "hotel",
+          "#BE185D",
+          [
+            "school",
+            "kindergarten",
+            "library"
+          ],
+          "#4338CA",
+          "fuel",
+          "#0369A1",
+          [
+            "government",
+            "police"
+          ],
+          "#1E3A8A",
+          "tourism",
+          "#9A3412",
+          "#4B5563"
+        ],
+        "text-halo-color": "#FFFFFF",
+        "text-halo-width": 2.4,
+        "text-halo-blur": 0.3
+      }
+    },
+    {
+      "id": "places-golden-tier2",
+      "type": "symbol",
+      "source": "places_golden",
+      "source-layer": "places_golden",
+      "minzoom": 15.5,
+      "filter": [
+        "all",
+        [
+          "all",
+          [
+            "!=",
+            [
+              "get",
+              "kind"
+            ],
+            "street"
+          ],
+          [
+            "!",
+            [
+              "in",
+              "Ø",
+              [
+                "coalesce",
+                [
+                  "get",
+                  "name_ar"
+                ],
+                [
+                  "get",
+                  "name"
+                ],
+                ""
+              ]
+            ]
+          ]
+        ],
+        [
+          "!",
+          [
+            "any",
+            [
+              "==",
+              [
+                "coalesce",
+                [
+                  "get",
+                  "category_key"
+                ],
+                ""
+              ],
+              "residential"
+            ],
+            [
+              "all",
+              [
+                "==",
+                [
+                  "coalesce",
+                  [
+                    "get",
+                    "category_key"
+                  ],
+                  ""
+                ],
+                ""
+              ],
+              [
+                "any",
+                [
+                  "match",
+                  [
+                    "slice",
+                    [
+                      "coalesce",
+                      [
+                        "get",
+                        "name_ar"
+                      ],
+                      [
+                        "get",
+                        "name"
+                      ],
+                      ""
+                    ],
+                    0,
+                    4
+                  ],
+                  [
+                    "بيت ",
+                    "سطح ",
+                    "شقة ",
+                    "فلة "
+                  ],
+                  true,
+                  false
+                ],
+                [
+                  "all",
+                  [
+                    "==",
+                    [
+                      "slice",
+                      [
+                        "coalesce",
+                        [
+                          "get",
+                          "name_ar"
+                        ],
+                        [
+                          "get",
+                          "name"
+                        ],
+                        ""
+                      ],
+                      0,
+                      4
+                    ],
+                    "دار "
+                  ],
+                  [
+                    "!=",
+                    [
+                      "slice",
+                      [
+                        "coalesce",
+                        [
+                          "get",
+                          "name_ar"
+                        ],
+                        [
+                          "get",
+                          "name"
+                        ],
+                        ""
+                      ],
+                      0,
+                      6
+                    ],
+                    "دار ال"
+                  ]
+                ],
+                [
+                  "match",
+                  [
+                    "slice",
+                    [
+                      "coalesce",
+                      [
+                        "get",
+                        "name_ar"
+                      ],
+                      [
+                        "get",
+                        "name"
+                      ],
+                      ""
+                    ],
+                    0,
+                    5
+                  ],
+                  [
+                    "منزل ",
+                    "فيلا ",
+                    "فيلة "
+                  ],
+                  true,
+                  false
+                ],
+                [
+                  "==",
+                  [
+                    "slice",
+                    [
+                      "coalesce",
+                      [
+                        "get",
+                        "name_ar"
+                      ],
+                      [
+                        "get",
+                        "name"
+                      ],
+                      ""
+                    ],
+                    0,
+                    6
+                  ],
+                  "عمارة "
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "!=",
+          [
+            "coalesce",
+            [
+              "get",
+              "category_key"
+            ],
+            ""
+          ],
+          ""
+        ],
+        [
+          "!",
+          [
+            "match",
+            [
+              "coalesce",
+              [
+                "get",
+                "category_key"
+              ],
+              ""
+            ],
+            [
+              "hospital",
+              "mall",
+              "worship",
+              "fuel",
+              "hotel",
+              "government",
+              "police",
+              "tourism",
+              "park"
+            ],
+            true,
+            false
+          ]
+        ],
+        [
+          "<",
+          [
+            "to-number",
+            [
+              "get",
+              "popularity_score"
+            ],
+            0
+          ],
+          60
+        ]
+      ],
+      "layout": {
+        "icon-image": [
+          "match",
+          [
+            "coalesce",
+            [
+              "get",
+              "category_key"
+            ],
+            ""
+          ],
+          "supermarket",
+          "badge-supermarket",
+          "shop",
+          "badge-shop",
+          "mall",
+          "badge-mall",
+          "worship",
+          "badge-worship",
+          "bakery",
+          "badge-bakery",
+          "restaurant",
+          "badge-restaurant",
+          "cafe",
+          "badge-cafe",
+          "hospital",
+          "badge-hospital",
+          "clinic",
+          "badge-clinic",
+          "pharmacy",
+          "badge-pharmacy",
+          [
+            "park",
+            "natural",
+            "farm"
+          ],
+          "badge-park",
+          "hotel",
+          "badge-hotel",
+          [
+            "school",
+            "kindergarten"
+          ],
+          "badge-school",
+          "library",
+          "badge-library",
+          [
+            "bank",
+            "exchange"
+          ],
+          "badge-bank",
+          "fuel",
+          "badge-fuel",
+          [
+            "government",
+            "police"
+          ],
+          "badge-government",
+          "tourism",
+          "badge-tourism",
+          "salon",
+          "badge-salon",
+          "car_service",
+          "badge-car",
+          "gym",
+          "badge-gym",
+          [
+            "office",
+            "industry",
+            "service",
+            "events"
+          ],
+          "badge-office",
+          "badge-generic"
+        ],
+        "icon-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          14,
+          0.72,
+          16,
+          0.85,
+          18,
+          1.0
+        ],
+        "icon-padding": 2,
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name_ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Medium"
+        ],
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          14,
+          10.5,
+          16,
+          11.5,
+          18,
+          13
+        ],
+        "text-max-width": 8,
+        "text-padding": 3,
+        "text-variable-anchor": [
+          "top",
+          "bottom",
+          "right",
+          "left"
+        ],
+        "text-radial-offset": 1.05,
+        "text-justify": "auto",
+        "text-optional": false,
+        "symbol-sort-key": [
+          "-",
+          [
+            "to-number",
+            [
+              "get",
+              "popularity_score"
+            ],
+            0
+          ]
+        ]
+      },
+      "paint": {
+        "text-color": [
+          "match",
+          [
+            "coalesce",
+            [
+              "get",
+              "category_key"
+            ],
+            ""
+          ],
+          "restaurant",
+          "#C2410C",
+          "cafe",
+          "#78350F",
+          "bakery",
+          "#B45309",
+          "shop",
+          "#1D4ED8",
+          "supermarket",
+          "#047857",
+          "mall",
+          "#6D28D9",
+          "hospital",
+          "#BE123C",
+          [
+            "clinic",
+            "pharmacy"
+          ],
+          "#0E7490",
+          "worship",
+          "#0F766E",
+          [
+            "park",
+            "natural",
+            "farm"
+          ],
+          "#047857",
+          "hotel",
+          "#BE185D",
+          [
+            "school",
+            "kindergarten",
+            "library"
+          ],
+          "#4338CA",
+          "fuel",
+          "#0369A1",
+          [
+            "government",
+            "police"
+          ],
+          "#1E3A8A",
+          "tourism",
+          "#9A3412",
+          "#4B5563"
+        ],
+        "text-halo-color": "#FFFFFF",
+        "text-halo-width": 2.4,
+        "text-halo-blur": 0.3
+      }
+    },
+    {
+      "id": "approved-road-labels",
+      "type": "symbol",
+      "source": "approved_roads",
+      "source-layer": "approved_roads",
+      "minzoom": 15,
+      "layout": {
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name:ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Medium"
+        ],
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          15,
+          10.5,
+          18,
+          13
+        ],
+        "symbol-placement": "line",
+        "symbol-spacing": 320,
+        "text-padding": 10,
+        "text-max-angle": 30,
+        "text-rotation-alignment": "map",
+        "text-letter-spacing": 0.02
+      },
+      "paint": {
+        "text-color": "#4B5563",
+        "text-halo-color": "#FFFFFF",
+        "text-halo-width": 2.4,
+        "text-halo-blur": 0.3
+      }
+    },
+    {
+      "id": "road-labels-minor",
+      "type": "symbol",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "minzoom": 15,
+      "layout": {
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name:ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Medium"
+        ],
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          15,
+          10.5,
+          18,
+          13
+        ],
+        "symbol-placement": "line",
+        "symbol-spacing": 320,
+        "text-padding": 10,
+        "text-max-angle": 30,
+        "text-rotation-alignment": "map",
+        "text-letter-spacing": 0.02
+      },
+      "paint": {
+        "text-color": "#4B5563",
+        "text-halo-color": "#FFFFFF",
+        "text-halo-width": 2.4,
+        "text-halo-blur": 0.3
+      },
+      "filter": [
+        "match",
+        [
+          "get",
+          "highway"
+        ],
+        [
+          "residential",
+          "service",
+          "unclassified",
+          "living_street",
+          "pedestrian"
+        ],
+        true,
+        false
+      ]
+    },
+    {
+      "id": "places-golden-tier1",
+      "type": "symbol",
+      "source": "places_golden",
+      "source-layer": "places_golden",
+      "minzoom": 14,
+      "filter": [
+        "all",
+        [
+          "all",
+          [
+            "!=",
+            [
+              "get",
+              "kind"
+            ],
+            "street"
+          ],
+          [
+            "!",
+            [
+              "in",
+              "Ø",
+              [
+                "coalesce",
+                [
+                  "get",
+                  "name_ar"
+                ],
+                [
+                  "get",
+                  "name"
+                ],
+                ""
+              ]
+            ]
+          ]
+        ],
+        [
+          "!",
+          [
+            "any",
+            [
+              "==",
+              [
+                "coalesce",
+                [
+                  "get",
+                  "category_key"
+                ],
+                ""
+              ],
+              "residential"
+            ],
+            [
+              "all",
+              [
+                "==",
+                [
+                  "coalesce",
+                  [
+                    "get",
+                    "category_key"
+                  ],
+                  ""
+                ],
+                ""
+              ],
+              [
+                "any",
+                [
+                  "match",
+                  [
+                    "slice",
+                    [
+                      "coalesce",
+                      [
+                        "get",
+                        "name_ar"
+                      ],
+                      [
+                        "get",
+                        "name"
+                      ],
+                      ""
+                    ],
+                    0,
+                    4
+                  ],
+                  [
+                    "بيت ",
+                    "سطح ",
+                    "شقة ",
+                    "فلة "
+                  ],
+                  true,
+                  false
+                ],
+                [
+                  "all",
+                  [
+                    "==",
+                    [
+                      "slice",
+                      [
+                        "coalesce",
+                        [
+                          "get",
+                          "name_ar"
+                        ],
+                        [
+                          "get",
+                          "name"
+                        ],
+                        ""
+                      ],
+                      0,
+                      4
+                    ],
+                    "دار "
+                  ],
+                  [
+                    "!=",
+                    [
+                      "slice",
+                      [
+                        "coalesce",
+                        [
+                          "get",
+                          "name_ar"
+                        ],
+                        [
+                          "get",
+                          "name"
+                        ],
+                        ""
+                      ],
+                      0,
+                      6
+                    ],
+                    "دار ال"
+                  ]
+                ],
+                [
+                  "match",
+                  [
+                    "slice",
+                    [
+                      "coalesce",
+                      [
+                        "get",
+                        "name_ar"
+                      ],
+                      [
+                        "get",
+                        "name"
+                      ],
+                      ""
+                    ],
+                    0,
+                    5
+                  ],
+                  [
+                    "منزل ",
+                    "فيلا ",
+                    "فيلة "
+                  ],
+                  true,
+                  false
+                ],
+                [
+                  "==",
+                  [
+                    "slice",
+                    [
+                      "coalesce",
+                      [
+                        "get",
+                        "name_ar"
+                      ],
+                      [
+                        "get",
+                        "name"
+                      ],
+                      ""
+                    ],
+                    0,
+                    6
+                  ],
+                  "عمارة "
+                ]
+              ]
+            ]
+          ]
+        ],
+        [
+          "any",
+          [
+            "match",
+            [
+              "coalesce",
+              [
+                "get",
+                "category_key"
+              ],
+              ""
+            ],
+            [
+              "hospital",
+              "mall",
+              "worship",
+              "fuel",
+              "hotel",
+              "government",
+              "police",
+              "tourism",
+              "park"
+            ],
+            true,
+            false
+          ],
+          [
+            ">=",
+            [
+              "to-number",
+              [
+                "get",
+                "popularity_score"
+              ],
+              0
+            ],
+            60
+          ]
+        ]
+      ],
+      "layout": {
+        "icon-image": [
+          "match",
+          [
+            "coalesce",
+            [
+              "get",
+              "category_key"
+            ],
+            ""
+          ],
+          "supermarket",
+          "badge-supermarket",
+          "shop",
+          "badge-shop",
+          "mall",
+          "badge-mall",
+          "worship",
+          "badge-worship",
+          "bakery",
+          "badge-bakery",
+          "restaurant",
+          "badge-restaurant",
+          "cafe",
+          "badge-cafe",
+          "hospital",
+          "badge-hospital",
+          "clinic",
+          "badge-clinic",
+          "pharmacy",
+          "badge-pharmacy",
+          [
+            "park",
+            "natural",
+            "farm"
+          ],
+          "badge-park",
+          "hotel",
+          "badge-hotel",
+          [
+            "school",
+            "kindergarten"
+          ],
+          "badge-school",
+          "library",
+          "badge-library",
+          [
+            "bank",
+            "exchange"
+          ],
+          "badge-bank",
+          "fuel",
+          "badge-fuel",
+          [
+            "government",
+            "police"
+          ],
+          "badge-government",
+          "tourism",
+          "badge-tourism",
+          "salon",
+          "badge-salon",
+          "car_service",
+          "badge-car",
+          "gym",
+          "badge-gym",
+          [
+            "office",
+            "industry",
+            "service",
+            "events"
+          ],
+          "badge-office",
+          "badge-generic"
+        ],
+        "icon-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          14,
+          0.72,
+          16,
+          0.85,
+          18,
+          1.0
+        ],
+        "icon-padding": 2,
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name_ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Medium"
+        ],
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          14,
+          10.5,
+          16,
+          11.5,
+          18,
+          13
+        ],
+        "text-max-width": 8,
+        "text-padding": 3,
+        "text-variable-anchor": [
+          "top",
+          "bottom",
+          "right",
+          "left"
+        ],
+        "text-radial-offset": 1.05,
+        "text-justify": "auto",
+        "text-optional": false,
+        "symbol-sort-key": [
+          "-",
+          [
+            "to-number",
+            [
+              "get",
+              "popularity_score"
+            ],
+            0
+          ]
+        ]
+      },
+      "paint": {
+        "text-color": [
+          "match",
+          [
+            "coalesce",
+            [
+              "get",
+              "category_key"
+            ],
+            ""
+          ],
+          "restaurant",
+          "#C2410C",
+          "cafe",
+          "#78350F",
+          "bakery",
+          "#B45309",
+          "shop",
+          "#1D4ED8",
+          "supermarket",
+          "#047857",
+          "mall",
+          "#6D28D9",
+          "hospital",
+          "#BE123C",
+          [
+            "clinic",
+            "pharmacy"
+          ],
+          "#0E7490",
+          "worship",
+          "#0F766E",
+          [
+            "park",
+            "natural",
+            "farm"
+          ],
+          "#047857",
+          "hotel",
+          "#BE185D",
+          [
+            "school",
+            "kindergarten",
+            "library"
+          ],
+          "#4338CA",
+          "fuel",
+          "#0369A1",
+          [
+            "government",
+            "police"
+          ],
+          "#1E3A8A",
+          "tourism",
+          "#9A3412",
+          "#4B5563"
+        ],
+        "text-halo-color": "#FFFFFF",
+        "text-halo-width": 2.4,
+        "text-halo-blur": 0.3
+      }
+    },
+    {
+      "id": "road-labels-major",
+      "type": "symbol",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "minzoom": 12,
+      "filter": [
+        "match",
+        [
+          "get",
+          "highway"
+        ],
+        [
+          "motorway",
+          "trunk",
+          "primary",
+          "secondary",
+          "tertiary"
+        ],
+        true,
+        false
+      ],
+      "layout": {
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name:ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Medium"
+        ],
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          12,
+          10,
+          14,
+          11.5,
+          16,
+          13,
+          18,
+          15
+        ],
+        "symbol-placement": "line",
+        "symbol-spacing": 380,
+        "text-padding": 12,
+        "text-max-angle": 30,
+        "text-rotation-alignment": "map",
+        "text-letter-spacing": 0.02
+      },
+      "paint": {
+        "text-color": "#2D3748",
+        "text-halo-color": "#FFFFFF",
+        "text-halo-width": 2.4,
+        "text-halo-blur": 0.3
+      }
+    },
+    {
+      "id": "poi-transit-station",
+      "type": "symbol",
+      "source": "local-osm-points",
+      "source-layer": "planet_osm_point",
+      "minzoom": 12,
+      "filter": [
+        "any",
+        [
+          "==",
+          "railway",
+          "station"
+        ],
+        [
+          "==",
+          "railway",
+          "halt"
+        ],
+        [
+          "==",
+          "railway",
+          "tram_stop"
+        ],
+        [
+          "==",
+          "station",
+          "subway"
+        ],
+        [
+          "==",
+          "amenity",
+          "bus_station"
+        ]
+      ],
+      "layout": {
+        "icon-image": "rail",
+        "icon-size": 1,
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name:ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Medium"
+        ],
+        "text-size": 11,
+        "text-offset": [
+          0,
+          1.4
+        ],
+        "text-anchor": "top",
+        "text-allow-overlap": false
+      },
+      "paint": {
+        "text-color": "#CC2233",
+        "text-halo-color": "#FFFFFF",
+        "text-halo-width": 2.4,
+        "text-halo-blur": 0.3
+      }
+    },
+    {
+      "id": "place-labels-area",
+      "type": "symbol",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "minzoom": 13,
+      "filter": [
+        "all",
+        [
+          "has",
+          "name"
+        ],
+        [
+          "!",
+          [
+            "has",
+            "boundary"
+          ]
+        ],
+        [
+          "!",
+          [
+            "has",
+            "building"
+          ]
+        ],
+        [
+          "any",
+          [
+            "match",
+            [
+              "get",
+              "place"
+            ],
+            [
+              "suburb",
+              "neighbourhood",
+              "quarter",
+              "island"
+            ],
+            true,
+            false
+          ],
+          [
+            "match",
+            [
+              "get",
+              "leisure"
+            ],
+            [
+              "park",
+              "garden",
+              "nature_reserve",
+              "stadium"
+            ],
+            true,
+            false
+          ],
+          [
+            "match",
+            [
+              "get",
+              "natural"
+            ],
+            [
+              "water",
+              "wood"
+            ],
+            true,
+            false
+          ],
+          [
+            "match",
+            [
+              "get",
+              "landuse"
+            ],
+            [
+              "cemetery",
+              "forest"
+            ],
+            true,
+            false
+          ]
+        ]
+      ],
+      "layout": {
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name:ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Medium"
+        ],
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          13,
+          10.5,
+          16,
+          12.5
+        ],
+        "text-max-width": 7,
+        "text-padding": 8
+      },
+      "paint": {
+        "text-color": [
+          "case",
+          [
+            "match",
+            [
+              "get",
+              "natural"
+            ],
+            [
+              "water"
+            ],
+            true,
+            false
+          ],
+          "#2E7AA8",
+          [
+            "has",
+            "place"
+          ],
+          "#5B6470",
+          "#2F6B3B"
+        ],
+        "text-halo-color": "#FFFFFF",
+        "text-halo-width": 2.4,
+        "text-halo-blur": 0.3
+      }
+    },
+    {
+      "id": "place-labels-point",
+      "type": "symbol",
+      "source": "local-osm-points",
+      "source-layer": "planet_osm_point",
+      "minzoom": 10,
+      "filter": [
+        "any",
+        [
+          "in",
+          "place",
+          "city",
+          "town",
+          "village",
+          "suburb",
+          "neighbourhood",
+          "hamlet",
+          "locality",
+          "quarter"
+        ],
+        [
+          "in",
+          "natural",
+          "peak",
+          "spring"
+        ]
+      ],
+      "layout": {
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name:ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "match",
+          [
+            "get",
+            "place"
+          ],
+          [
+            "city",
+            "town"
+          ],
+          [
+            "literal",
+            [
+              "Noto Sans Bold"
+            ]
+          ],
+          [
+            "literal",
+            [
+              "Noto Sans Medium"
+            ]
+          ]
+        ],
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          10,
+          [
+            "match",
+            [
+              "get",
+              "place"
+            ],
+            "city",
+            16,
+            "town",
+            14,
+            11
+          ],
+          14,
+          [
+            "match",
+            [
+              "get",
+              "place"
+            ],
+            "city",
+            20,
+            "town",
+            16,
+            13
+          ],
+          17,
+          14
+        ],
+        "text-letter-spacing": [
+          "match",
+          [
+            "get",
+            "place"
+          ],
+          "city",
+          0.08,
+          "town",
+          0.05,
+          0.02
+        ],
+        "text-anchor": "center",
+        "text-padding": 10,
+        "text-allow-overlap": false,
+        "symbol-sort-key": [
+          "match",
+          [
+            "get",
+            "place"
+          ],
+          "city",
+          0,
+          "town",
+          1,
+          "village",
+          2,
+          "suburb",
+          3,
+          4
+        ],
+        "text-max-width": 8
+      },
+      "paint": {
+        "text-color": [
+          "match",
+          [
+            "get",
+            "place"
+          ],
+          "city",
+          "#111827",
+          "town",
+          "#1F2937",
+          "village",
+          "#374151",
+          "suburb",
+          "#4B5563",
+          "#6B7280"
+        ],
+        "text-halo-color": "#FFFFFF",
+        "text-halo-width": 2.6,
+        "text-halo-blur": 0.3
+      }
+    }
+  ]
+}

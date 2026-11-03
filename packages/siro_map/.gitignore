@@ -1,0 +1,7 @@
+.dart_tool/
+example/.dart_tool/
+example/pubspec.lock
+.flutter-plugins-dependencies
+example/.flutter-plugins-dependencies
+build/
+.DS_Store

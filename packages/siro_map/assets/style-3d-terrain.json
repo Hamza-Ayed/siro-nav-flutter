@@ -1,0 +1,1196 @@
+{
+  "version": 8,
+  "name": "Intaleq Sovereign 3D Topographic & Terrain Style (خريطة التضاريس ثلاثية الأبعاد السيادية)",
+  "metadata": {
+    "brand": "Intaleq",
+    "version": "3.5.0-terrain-3d",
+    "description": "High-fidelity Sovereign 3D Topographic Style with DEM terrain displacement, dynamic hillshading, contour lines, and 3D architectural extrusions"
+  },
+  "center": [
+    35.4337,
+    29.5763
+  ],
+  "zoom": 12.5,
+  "pitch": 65,
+  "bearing": -35,
+  "glyphs": "https://cdn.protomaps.com/fonts/pbf/{fontstack}/{range}.pbf",
+  "sources": {
+    "terrain-dem": {
+      "type": "raster-dem",
+      "tiles": [
+        "https://api.intaleqapp.com/api/tactical/dem/{z}/{x}/{y}.png",
+        "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"
+      ],
+      "encoding": "terrarium",
+      "tileSize": 256,
+      "maxzoom": 15
+    },
+    "satellite-base-imagery": {
+      "type": "raster",
+      "tiles": [
+        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+      ],
+      "tileSize": 256,
+      "maxzoom": 19,
+      "attribution": "© Intaleq Sovereign Earth Observation Engine"
+    },
+    "local-osm-polygons": {
+      "type": "vector",
+      "tiles": [
+        "https://tiles.intaleqapp.com/planet_osm_polygon/{z}/{x}/{y}"
+      ],
+      "maxzoom": 14,
+      "attribution": "© Intaleq | © OpenStreetMap contributors"
+    },
+    "local-osm-lines": {
+      "type": "vector",
+      "tiles": [
+        "https://tiles.intaleqapp.com/planet_osm_line/{z}/{x}/{y}"
+      ],
+      "maxzoom": 14
+    },
+    "local-osm-points": {
+      "type": "vector",
+      "tiles": [
+        "https://tiles.intaleqapp.com/planet_osm_point/{z}/{x}/{y}"
+      ],
+      "maxzoom": 14
+    },
+    "places_jordan": {
+      "type": "vector",
+      "tiles": [
+        "https://tiles.intaleqapp.com/places_jordan/{z}/{x}/{y}"
+      ],
+      "maxzoom": 14,
+      "bounds": [
+        34.9,
+        29.1,
+        39.3,
+        33.4
+      ]
+    },
+    "overture_buildings": {
+      "type": "vector",
+      "tiles": [
+        "https://tiles.intaleqapp.com/overture_building/{z}/{x}/{y}"
+      ],
+      "maxzoom": 16
+    },
+    "approved_roads": {
+      "type": "vector",
+      "tiles": [
+        "https://tiles.intaleqapp.com/approved_roads/{z}/{x}/{y}"
+      ],
+      "minzoom": 8,
+      "maxzoom": 18
+    },
+    "places_golden": {
+      "type": "vector",
+      "tiles": [
+        "https://tiles.intaleqapp.com/places_golden/{z}/{x}/{y}"
+      ],
+      "minzoom": 11,
+      "maxzoom": 18
+    }
+  },
+  "layers": [
+    {
+      "id": "topo-background",
+      "type": "background",
+      "paint": {
+        "background-color": "#EFECE6"
+      }
+    },
+    {
+      "id": "satellite-base-layer",
+      "type": "raster",
+      "source": "satellite-base-imagery",
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "raster-opacity": 1,
+        "raster-saturation": 0.05
+      }
+    },
+    {
+      "id": "terrain-3d-hillshading",
+      "type": "hillshade",
+      "source": "terrain-dem",
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "hillshade-illumination-direction": 315,
+        "hillshade-illumination-anchor": "viewport",
+        "hillshade-shadow-color": "#000000",
+        "hillshade-highlight-color": "#ffffff",
+        "hillshade-accent-color": "#1e293b",
+        "hillshade-exaggeration": 0.45
+      }
+    },
+    {
+      "id": "natural-water-poly",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "any",
+        [
+          "==",
+          "natural",
+          "water"
+        ],
+        [
+          "==",
+          "water",
+          "lake"
+        ],
+        [
+          "==",
+          "waterway",
+          "riverbank"
+        ]
+      ],
+      "paint": {
+        "fill-color": "#0284c7",
+        "fill-opacity": 0.85
+      }
+    },
+    {
+      "id": "natural-wood-forest",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "any",
+        [
+          "==",
+          "natural",
+          "wood"
+        ],
+        [
+          "==",
+          "landuse",
+          "forest"
+        ],
+        [
+          "==",
+          "leisure",
+          "nature_reserve"
+        ]
+      ],
+      "paint": {
+        "fill-color": "#4d7c0f",
+        "fill-opacity": 0.25
+      }
+    },
+    {
+      "id": "natural-sand-dune",
+      "type": "fill",
+      "source": "local-osm-polygons",
+      "source-layer": "planet_osm_polygon",
+      "filter": [
+        "any",
+        [
+          "==",
+          "natural",
+          "sand"
+        ],
+        [
+          "==",
+          "natural",
+          "desert"
+        ],
+        [
+          "==",
+          "natural",
+          "scree"
+        ]
+      ],
+      "paint": {
+        "fill-color": "#ea580c",
+        "fill-opacity": 0.12
+      }
+    },
+    {
+      "id": "wadis-waterways",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "in",
+        "waterway",
+        "river",
+        "stream",
+        "canal",
+        "wadi"
+      ],
+      "paint": {
+        "line-color": "#0284c7",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          8,
+          1,
+          14,
+          3.5
+        ],
+        "line-opacity": 0.7
+      }
+    },
+    {
+      "id": "roads-casing",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "in",
+        "highway",
+        "motorway",
+        "trunk",
+        "primary",
+        "secondary"
+      ],
+      "paint": {
+        "line-color": "#ffffff",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          8,
+          2,
+          14,
+          6
+        ],
+        "line-opacity": 0.9
+      }
+    },
+    {
+      "id": "roads-core-highways",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "in",
+        "highway",
+        "motorway",
+        "trunk"
+      ],
+      "paint": {
+        "line-color": "#d97706",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          8,
+          1.2,
+          14,
+          4.5
+        ]
+      }
+    },
+    {
+      "id": "roads-core-primary",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "in",
+        "highway",
+        "primary",
+        "secondary"
+      ],
+      "paint": {
+        "line-color": "#f59e0b",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          9,
+          1,
+          14,
+          3.2
+        ]
+      }
+    },
+    {
+      "id": "roads-core-minor",
+      "type": "line",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "in",
+        "highway",
+        "residential",
+        "service",
+        "unclassified",
+        "living_street"
+      ],
+      "minzoom": 13.5,
+      "paint": {
+        "line-color": "#ffffff",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          13.5,
+          0.9,
+          16,
+          2.5
+        ],
+        "line-opacity": 0.8
+      }
+    },
+    {
+      "id": "road-labels-highways",
+      "type": "symbol",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "in",
+        "highway",
+        "motorway",
+        "trunk",
+        "primary"
+      ],
+      "minzoom": 12,
+      "layout": {
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name:ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Arabic Bold",
+          "Open Sans Bold"
+        ],
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          12,
+          10,
+          15,
+          12,
+          18,
+          14
+        ],
+        "symbol-placement": "line",
+        "text-rotation-alignment": "map",
+        "text-pitch-alignment": "map",
+        "text-keep-upright": true,
+        "text-letter-spacing": 0.05,
+        "text-padding": 24,
+        "symbol-spacing": 700,
+        "text-max-angle": 20,
+        "text-allow-overlap": false,
+        "text-ignore-placement": false
+      },
+      "paint": {
+        "text-color": "#1e293b",
+        "text-halo-color": "rgba(255, 255, 255, 0.95)",
+        "text-halo-width": 2.2
+      }
+    },
+    {
+      "id": "road-labels-major",
+      "type": "symbol",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "in",
+        "highway",
+        "secondary",
+        "tertiary"
+      ],
+      "minzoom": 13.5,
+      "layout": {
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name:ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Arabic Bold",
+          "Open Sans Bold"
+        ],
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          13.5,
+          9.5,
+          16,
+          11,
+          18,
+          13
+        ],
+        "symbol-placement": "line",
+        "text-rotation-alignment": "map",
+        "text-pitch-alignment": "map",
+        "text-keep-upright": true,
+        "text-letter-spacing": 0.04,
+        "text-padding": 20,
+        "symbol-spacing": 600,
+        "text-max-angle": 20,
+        "text-allow-overlap": false,
+        "text-ignore-placement": false
+      },
+      "paint": {
+        "text-color": "#334155",
+        "text-halo-color": "rgba(255, 255, 255, 0.9)",
+        "text-halo-width": 2
+      }
+    },
+    {
+      "id": "road-labels-minor",
+      "type": "symbol",
+      "source": "local-osm-lines",
+      "source-layer": "planet_osm_line",
+      "filter": [
+        "in",
+        "highway",
+        "residential",
+        "unclassified"
+      ],
+      "minzoom": 16,
+      "layout": {
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name:ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Arabic Regular",
+          "Open Sans Regular"
+        ],
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          16,
+          9.5,
+          18,
+          11.5
+        ],
+        "symbol-placement": "line",
+        "text-rotation-alignment": "map",
+        "text-pitch-alignment": "map",
+        "text-keep-upright": true,
+        "text-letter-spacing": 0.04,
+        "text-padding": 20,
+        "symbol-spacing": 600,
+        "text-max-angle": 18,
+        "text-allow-overlap": false,
+        "text-ignore-placement": false
+      },
+      "paint": {
+        "text-color": "#475569",
+        "text-halo-color": "rgba(255, 255, 255, 0.9)",
+        "text-halo-width": 1.8
+      }
+    },
+    {
+      "id": "approved-road-labels",
+      "type": "symbol",
+      "source": "approved_roads",
+      "source-layer": "approved_roads",
+      "minzoom": 16.5,
+      "layout": {
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name:ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Arabic Bold",
+          "Open Sans Bold"
+        ],
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          16.5,
+          9,
+          18,
+          11.5
+        ],
+        "symbol-placement": "line",
+        "text-rotation-alignment": "map",
+        "text-pitch-alignment": "map",
+        "text-keep-upright": true,
+        "text-letter-spacing": 0.05,
+        "text-padding": 20,
+        "symbol-spacing": 650,
+        "text-max-angle": 20,
+        "text-allow-overlap": false,
+        "text-ignore-placement": false
+      },
+      "paint": {
+        "text-color": "#1e293b",
+        "text-halo-color": "rgba(255, 255, 255, 0.95)",
+        "text-halo-width": 2.2
+      }
+    },
+    {
+      "id": "3d-buildings-ground-shadows",
+      "type": "fill",
+      "source": "overture_buildings",
+      "source-layer": "overture_building",
+      "minzoom": 15,
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "fill-color": "#0f172a",
+        "fill-opacity": 0.45,
+        "fill-translate": [
+          12,
+          4
+        ],
+        "fill-translate-anchor": "map"
+      }
+    },
+    {
+      "id": "3d-buildings-extrusion",
+      "type": "fill-extrusion",
+      "source": "overture_buildings",
+      "source-layer": "overture_building",
+      "minzoom": 15,
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "fill-extrusion-color": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "coalesce",
+            [
+              "get",
+              "height"
+            ],
+            12
+          ],
+          0,
+          "#e7e5e4",
+          30,
+          "#d6d3d1",
+          70,
+          "#a8a29e",
+          150,
+          "#78716c"
+        ],
+        "fill-extrusion-height": [
+          "coalesce",
+          [
+            "get",
+            "height"
+          ],
+          [
+            "*",
+            [
+              "coalesce",
+              [
+                "get",
+                "num_floors"
+              ],
+              3
+            ],
+            3.5
+          ]
+        ],
+        "fill-extrusion-base": 0,
+        "fill-extrusion-opacity": 0.88
+      }
+    },
+    {
+      "id": "mountain-peaks-points",
+      "type": "circle",
+      "source": "local-osm-points",
+      "source-layer": "planet_osm_point",
+      "filter": [
+        "==",
+        "natural",
+        "peak"
+      ],
+      "minzoom": 10,
+      "paint": {
+        "circle-radius": 4.5,
+        "circle-color": "#991b1b",
+        "circle-stroke-width": 1.5,
+        "circle-stroke-color": "#ffffff"
+      }
+    },
+    {
+      "id": "mountain-peaks-labels",
+      "type": "symbol",
+      "source": "local-osm-points",
+      "source-layer": "planet_osm_point",
+      "filter": [
+        "==",
+        "natural",
+        "peak"
+      ],
+      "minzoom": 10,
+      "layout": {
+        "text-field": [
+          "format",
+          [
+            "coalesce",
+            [
+              "get",
+              "name:ar"
+            ],
+            [
+              "get",
+              "name"
+            ],
+            "قمة جبلية"
+          ],
+          {},
+          "\n▲ ",
+          {
+            "font-scale": 0.8
+          },
+          [
+            "concat",
+            [
+              "coalesce",
+              [
+                "get",
+                "ele"
+              ],
+              ""
+            ],
+            " م"
+          ],
+          {
+            "font-scale": 0.75
+          }
+        ],
+        "text-font": [
+          "Noto Sans Arabic Regular",
+          "Open Sans Regular"
+        ],
+        "text-size": 11.5,
+        "text-offset": [
+          0,
+          1.2
+        ],
+        "text-anchor": "top",
+        "text-max-width": 10
+      },
+      "paint": {
+        "text-color": "#451a03",
+        "text-halo-color": "#ffffff",
+        "text-halo-width": 2
+      }
+    },
+    {
+      "id": "jordan-city-labels",
+      "type": "symbol",
+      "source": "places_jordan",
+      "source-layer": "places_jordan",
+      "filter": [
+        "any",
+        [
+          "==",
+          "category",
+          "city"
+        ],
+        [
+          "==",
+          "category",
+          "town"
+        ],
+        [
+          "==",
+          "category",
+          "governorate"
+        ],
+        [
+          "==",
+          "category",
+          "capital"
+        ]
+      ],
+      "minzoom": 6,
+      "maxzoom": 11,
+      "layout": {
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name_ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Arabic Bold",
+          "Open Sans Bold"
+        ],
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          10,
+          9,
+          12,
+          11,
+          14
+        ],
+        "text-padding": 24,
+        "text-allow-overlap": false,
+        "text-ignore-placement": false,
+        "text-transform": "uppercase",
+        "text-letter-spacing": 0.05
+      },
+      "paint": {
+        "text-color": "#1c1917",
+        "text-halo-color": "#fafaf9",
+        "text-halo-width": 2.2
+      }
+    },
+    {
+      "id": "places-golden-tier1",
+      "type": "symbol",
+      "source": "places_golden",
+      "source-layer": "places_golden",
+      "minzoom": 13,
+      "filter": [
+        "all",
+        [
+          "!=",
+          [
+            "get",
+            "kind"
+          ],
+          "street"
+        ],
+        [
+          "in",
+          [
+            "get",
+            "category_key"
+          ],
+          [
+            "literal",
+            [
+              "hospital",
+              "clinic",
+              "pharmacy",
+              "police",
+              "transport",
+              "worship",
+              "school",
+              "university",
+              "fuel"
+            ]
+          ]
+        ]
+      ],
+      "layout": {
+        "icon-image": [
+          "match",
+          [
+            "get",
+            "category_key"
+          ],
+          "hospital",
+          "hospital",
+          "clinic",
+          "hospital",
+          "pharmacy",
+          "pharmacy",
+          "police",
+          "police",
+          "transport",
+          "train",
+          "worship",
+          "tourist",
+          "school",
+          "tourist",
+          "university",
+          "tourist",
+          "fuel",
+          "shop",
+          ""
+        ],
+        "icon-size": 0.9,
+        "icon-optional": true,
+        "text-optional": false,
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name_ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Arabic Bold",
+          "Open Sans Bold"
+        ],
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          13,
+          9.5,
+          15,
+          11,
+          17,
+          13
+        ],
+        "text-anchor": "top",
+        "text-offset": [
+          0,
+          0.9
+        ],
+        "symbol-sort-key": [
+          "-",
+          [
+            "to-number",
+            [
+              "get",
+              "popularity_score"
+            ],
+            0
+          ]
+        ]
+      },
+      "paint": {
+        "text-color": "#1c1917",
+        "text-halo-color": "#ffffff",
+        "text-halo-width": 2.2
+      }
+    },
+    {
+      "id": "places-golden-tier2",
+      "type": "symbol",
+      "source": "places_golden",
+      "source-layer": "places_golden",
+      "minzoom": 15,
+      "filter": [
+        "all",
+        [
+          "!=",
+          [
+            "get",
+            "kind"
+          ],
+          "street"
+        ],
+        [
+          "in",
+          [
+            "get",
+            "category_key"
+          ],
+          [
+            "literal",
+            [
+              "restaurant",
+              "cafe",
+              "bakery",
+              "supermarket",
+              "mall",
+              "shop",
+              "bank",
+              "exchange",
+              "hotel",
+              "tourism",
+              "kindergarten",
+              "car_service"
+            ]
+          ]
+        ]
+      ],
+      "layout": {
+        "icon-image": [
+          "match",
+          [
+            "get",
+            "category_key"
+          ],
+          "restaurant",
+          "restaurant",
+          "cafe",
+          "cafe",
+          "bakery",
+          "shop",
+          "supermarket",
+          "shop",
+          "mall",
+          "shop",
+          "shop",
+          "shop",
+          "bank",
+          "shop",
+          "exchange",
+          "shop",
+          "hotel",
+          "tourist",
+          "tourism",
+          "tourist",
+          "kindergarten",
+          "tourist",
+          "car_service",
+          "shop",
+          ""
+        ],
+        "icon-size": 0.9,
+        "icon-optional": true,
+        "text-optional": false,
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name_ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Arabic Bold",
+          "Open Sans Bold"
+        ],
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          13,
+          9.5,
+          15,
+          11,
+          17,
+          13
+        ],
+        "text-anchor": "top",
+        "text-offset": [
+          0,
+          0.9
+        ],
+        "symbol-sort-key": [
+          "-",
+          [
+            "to-number",
+            [
+              "get",
+              "popularity_score"
+            ],
+            0
+          ]
+        ]
+      },
+      "paint": {
+        "text-color": "#1c1917",
+        "text-halo-color": "#ffffff",
+        "text-halo-width": 2.2
+      }
+    },
+    {
+      "id": "places-golden-labels",
+      "type": "symbol",
+      "source": "places_golden",
+      "source-layer": "places_golden",
+      "minzoom": 13,
+      "filter": [
+        "all",
+        [
+          "!=",
+          [
+            "get",
+            "kind"
+          ],
+          "street"
+        ],
+        [
+          "!",
+          [
+            "in",
+            [
+              "get",
+              "category_key"
+            ],
+            [
+              "literal",
+              [
+                "hospital",
+                "clinic",
+                "pharmacy",
+                "police",
+                "transport",
+                "worship",
+                "school",
+                "university",
+                "fuel",
+                "restaurant",
+                "cafe",
+                "bakery",
+                "supermarket",
+                "mall",
+                "shop",
+                "bank",
+                "exchange",
+                "hotel",
+                "tourism",
+                "kindergarten",
+                "car_service"
+              ]
+            ]
+          ]
+        ]
+      ],
+      "layout": {
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name_ar"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-font": [
+          "Noto Sans Arabic Bold",
+          "Open Sans Bold"
+        ],
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          13,
+          9.5,
+          15,
+          11,
+          17,
+          13
+        ],
+        "text-padding": 8,
+        "text-allow-overlap": false,
+        "symbol-sort-key": [
+          "-",
+          [
+            "to-number",
+            [
+              "get",
+              "popularity_score"
+            ],
+            0
+          ]
+        ],
+        "text-max-width": 7
+      },
+      "paint": {
+        "text-color": "#1c1917",
+        "text-halo-color": "#ffffff",
+        "text-halo-width": 2.2
+      }
+    }
+  ],
+  "terrain": {
+    "source": "terrain-dem",
+    "exaggeration": 2
+  }
+}

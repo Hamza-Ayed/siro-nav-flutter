@@ -1,0 +1,35 @@
+# وظيفة الملف: تعريف حزمة Flutter SDK واعتمادياتها ومواردها المنشورة.
+name: siro_map
+description: >
+  Premium Flutter SDK for Siro Maps Platform (Jordan, Syria & MENA).
+  A drop-in Google Maps Flutter replacement backed by MapLibre GL.
+version: 1.0.0
+homepage: https://intaleqapp.com
+repository: https://github.com/Hamza-Ayed/siro_map_flutter
+issue_tracker: https://github.com/Hamza-Ayed/siro_map_flutter/issues
+
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  maplibre_gl: ^0.25.0
+  http: ^1.2.0
+  shared_preferences: ^2.5.5
+  webview_flutter: ^4.14.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/style.json
+    - assets/style_dark.json
+    - assets/style-satellite.json
+    - assets/style-3d-terrain.json
