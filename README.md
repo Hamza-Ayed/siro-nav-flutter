@@ -1,43 +1,126 @@
 # Siro Nav for Flutter
+### حزمة الملاحة التوجيهية الحية داخل التطبيق (Flutter 3.x • iOS & Android)
 
-In-app turn-by-turn navigation on Siro Maps, for ride-hailing and delivery
-apps. The driver never leaves your app: the route, the map, Arabic voice
-guidance and the trip meter all run inside it.
+[![Flutter](https://img.shields.io/badge/Flutter-3.x%2B-blue.svg)](https://flutter.dev)
+[![Dart](https://img.shields.io/badge/Dart-3.0%2B-teal.svg)](https://dart.dev)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![Siro Maps](https://img.shields.io/badge/Maps-Siro%20Limestone%20Vector-purple.svg)](https://map.intaleqapp.com)
 
-| Package | What it is |
-|---|---|
-| [`packages/siro_nav`](packages/siro_nav) | The SDK: controller, drop-in `SiroNavView`, voice, trip meter, geocoding |
-| [`packages/siro_nav_core`](packages/siro_nav_core) | Pure Dart engine: map matching, instructions, rerouting, telemetry |
-| [`packages/siro_map`](packages/siro_map) | The Siro map widget the view draws on |
+ملاحة كاملة ومباشرة داخل تطبيقك لخدمات النقل الذكي والتوصيل (Ride-Hailing & Delivery) بدون الحاجة إلى إخراج السائق لتطبيقات خارجية (مثل خرائط جوجل أو ويز). المسار، الخريطة الفيكتور ثلاثية الأبعاد، التوجيه الصوتي العربي، وعداد احتساب الأجرة والانتظار تعمل جميعها داخل كود فلاتر مباشرة.
 
-Start with [`packages/siro_nav/README.md`](packages/siro_nav/README.md).
+---
 
-## Quick start
+## 📸 معاينة حية للمحرك (Live Visuals)
+
+<div align="center">
+  <img src="docs/media/screen_flutter_roundabout_polyline.png" width="370" alt="Siro Nav Roundabout Exit Maneuver" />
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="docs/media/screen_flutter_navigation_hud.png" width="370" alt="Siro Nav Fare & Distance Progression" />
+</div>
+
+- **خط المسار الأزرق الملاحي (Blue Route Polyline)**: يلتزم بشبكة الطرق الحقيقية ويدعم مناورات الدواوير والتقاطعات بدقة متناهية.
+- **توجيه الدواوير الصوتي الذكي**: نطق رقم المخرج واسم الشارع (`عند الدوار، اسلك المخرج السادس إلى شارع الكلية العلمية الإسلامية`).
+- **الماركر وسهم التوجيه التفاعلي**: يتجه فورياً مع زاوية الـ Heading ونظام الـ GPS.
+- **عداد الأجرة والانتظار المباشر**: احتساب فوري للمسافة، زمن الانتظار، والأجرة بالعملة المحددة (JOD, SAR, AED, USD).
+- **عداد السرعة المرتفع**: شارة دائرية بارزة واضحة للسائق أثناء القيادة.
+
+---
+
+## 📦 التثبيت (Installation)
+
+أضف الحزمة إلى ملف `pubspec.yaml`:
+
+```yaml
+dependencies:
+  siro_nav:
+    git:
+      url: https://github.com/Hamza-Ayed/siro-nav-flutter.git
+      path: packages/siro_nav
+```
+
+ثم شغّل:
+```bash
+flutter pub get
+```
+
+---
+
+## ⚡ البدء السريع في ٥ أسطر (Quick Start)
+
+### ١. تهيئة المحرك وتحديد تسعيرة الرحلة (Fare Configuration)
 
 ```dart
+import 'package:flutter/material.dart';
+import 'package:siro_nav/siro_nav.dart';
+
+// تهيئة المتحكم مع مفتاح منصة سيرو
 final nav = await SiroNavController.create(
   config: NavConfig(apiKey: 'YOUR_SIRO_API_KEY'),
 );
 
-// Leg 1: to the rider. Origin = the phone's GPS position.
-await nav.startNavigation(destination: rider, phase: NavTripPhase.pickup);
-
-// Leg 2: the ride, metered with your own tariff.
-await nav.startNavigation(
-  destination: dropOff,
-  phase: NavTripPhase.trip,
-  fare: const NavFareConfig(baseFare: 0.5, perKilometer: 0.35, perWaitingMinute: 0.05),
+// تحديد تسعيرة الرحلة والعملة للمطور
+final fareConfig = NavFareConfig(
+  baseFare: 0.50,            // فتحة العداد المبدئية
+  perKilometer: 0.35,        // سعر الكيلومتر
+  perWaitingMinute: 0.05,    // سعر دقيقة الانتظار (عند سرعة أقل من 5 كم/س)
+  currency: 'JOD',           // العملة: JOD, SAR, AED, USD
+  waitingSpeedKmh: 5.0,
 );
 
-// Show it:
-SiroNavView(controller: nav, onExit: () => Navigator.pop(context));
-
-// After the trip ends: nav.lastTrip.value has distance, waiting time and fare.
+// بدء الملاحة نحو الوجهة
+await nav.startNavigation(
+  destination: NavPoint(latitude: 31.9650, longitude: 35.8900),
+  phase: NavTripPhase.trip,
+  fare: fareConfig,
+);
 ```
 
-## Tests
+### ٢. عرض واجهة الملاحة الجاهزة (`SiroNavView`)
+
+```dart
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    body: SiroNavView(
+      controller: nav,
+      locale: 'ar',                // لغة الواجهة والصوت (ar / en)
+      showFareMetrics: true,       // إظهار شريط الأجرة والمسافة للمطور
+      onExit: () {
+        nav.stopNavigation();
+        Navigator.of(context).pop();
+      },
+    ),
+  );
+}
+```
+
+---
+
+## 🎛️ الاستماع لأحداث الرحلة ومحصلة الأجرة (Trip Totals & Events)
+
+```dart
+nav.addListener((event) {
+  if (event is NavProgressEvent) {
+    print('المسافة المتبقية: ${event.distanceRemainingMeters} م');
+    print('الأجرة الحالية: ${event.currentFare} ${fareConfig.currency}');
+  } else if (event is NavArrivedEvent) {
+    print('تم الوصول! إجمالي الأجرة: ${event.totals.totalFare} ${fareConfig.currency}');
+    print('إجمالي المسافة: ${event.totals.totalDistanceKm} كم');
+    print('دقائق الانتظار: ${event.totals.waitingMinutes} دقيقة');
+  }
+});
+```
+
+---
+
+## 🧪 تشغيل الاختبارات الآلية (Unit Tests)
 
 ```bash
 cd packages/siro_nav_core && dart test
 cd packages/siro_nav && flutter test
 ```
+
+---
+
+## 📄 الترخيص (License)
+MIT License. © 2026 Siro Maps & Hamza Ayed.
